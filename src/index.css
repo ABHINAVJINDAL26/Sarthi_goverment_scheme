@@ -270,7 +270,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(248, 92, 19, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
   padding: 18px 8px 12px;
-  min-width: 480px;
+  min-width: 280px;
+  max-width: min(480px, calc(100vw - 24px));
+  overflow-x: auto;
 }
 
 .lang-dropdown__grid {
@@ -771,6 +773,10 @@
   .mobile-bottom-tabs {
     display: flex;
   }
+
+  body {
+    padding-bottom: 72px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -896,7 +902,6 @@
 
 .hero-heading__line2 {
   display: block;
-  white-space: nowrap;
   margin-top: 4px;
 }
 
@@ -996,15 +1001,14 @@
   transform: translateX(2px);
 }
 
-/* Category Pills — single row (no scrollbar) */
+/* Category Pills */
 .hero-categories {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
-  overflow: visible;
 }
 
 .hero-cat-pill {

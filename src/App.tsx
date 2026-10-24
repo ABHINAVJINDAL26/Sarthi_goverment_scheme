@@ -26,7 +26,7 @@ const LANG_COLUMNS = [
     { code: 'kok', label: 'कोंकणी' },
     { code: 'sa', label: 'संस्कृतम्' },
     { code: 'mai', label: 'मैथिली' },
-    { code: 'bho', label: 'बड़' },
+    { code: 'bho', label: 'भोजपुरी' },
     { code: 'sd', label: 'सिन्धी' },
     { code: 'mni', label: 'मणिपुरी' },
     { code: 'ne', label: 'नेपाली' },
@@ -50,7 +50,7 @@ const LANG_COLUMNS = [
     { code: 'uz', label: "O'zbek" },
     { code: 'es', label: 'Español' },
     { code: 'zh-CN', label: '简体中文' },
-    { code: 'zh-TW', label: '中国传统的' },
+    { code: 'zh-TW', label: '繁體中文' },
     { code: 'fa', label: 'فارسی' },
   ],
 ]
@@ -254,6 +254,7 @@ export default function App() {
                   className="lang-dropdown__trigger"
                   aria-haspopup="listbox"
                   aria-expanded={isLangOpen}
+                  onClick={() => setIsLangOpen(!isLangOpen)}
                 >
                   <span>{currentLang.toUpperCase()}</span>
                   <svg aria-hidden="true" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

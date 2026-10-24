@@ -10,7 +10,7 @@
 [![Styling](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%20%7C%20TypeScript-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Vector Search](https://img.shields.io/badge/RAG-FAISS%20%2F%20Chroma-FF6F00?style=flat-square)](https://github.com/facebookresearch/faiss)
-[![Privacy](https://img.shields.io/badge/Privacy-DPDP%20Act%20Ready-green?style=flat-square)](https://www.meity.gov.in/data-protection-framework)
+[![Privacy](https://img.shields.io/badge/Privacy-Privacy--First%20Design-blue?style=flat-square)](https://www.meity.gov.in/data-protection-framework)
 
 </div>
 
@@ -31,7 +31,7 @@ India runs over **3,000+ central and state schemes**, yet millions miss out due 
 * 📍 **Localized Resolution Paths**: Shows exact district-level offices (Tehsil/CSC), application fees, and turnaround times for obtaining missing certificates.
 * 🤖 **Grounded RAG Assistant**: Multi-lingual conversational agent powered by vector search (FAISS/Chroma) with strict anti-hallucination guardrails and mandatory official citations.
 * 👨‍👩‍👧 **Multi-Generational Family Dashboard**: One account manages and tracks benefits for elderly parents, spouse, and children.
-* 🔒 **DPDP Act Compliant**: Ephemeral document processing, masked Aadhaar storage (only last 4 digits), and zero commercial tracking.
+* 🔒 **DPDP-Aligned Privacy Design**: Ephemeral document processing, masked Aadhaar storage (only last 4 digits), and zero commercial tracking.
 
 ---
 
@@ -39,7 +39,7 @@ India runs over **3,000+ central and state schemes**, yet millions miss out due 
 
 ```mermaid
 graph LR
-    User["📱 Citizen / Family"] --> UI["🖥️ React 18 + PWA Client"]
+    User["📱 Citizen / Family"] --> UI["🖥️ React 18 Client"]
     UI --> API["⚡ Node.js / Express API Gateway"]
     API --> RuleEngine["⚙️ Deterministic Rule Engine"]
     API --> OCR["🔍 Document OCR Pipeline"]
@@ -54,7 +54,7 @@ graph LR
 
 | Domain | Technologies |
 |:---|:---|
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons, PWA (IndexedDB) |
+| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons (PWA: Future Scope) |
 | **Backend** | Node.js (v20+ LTS), Express.js, TypeScript, Prisma ORM, JWT Authentication |
 | **Data & Vector** | PostgreSQL 15+ (Full-Text Search), FAISS / ChromaDB |
 | **AI / OCR** | LangChain / LlamaIndex, Tesseract OCR, OpenCV Image Preprocessing |
