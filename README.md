@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20TypeScript%20%7C%20Vite-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![Styling](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.11+-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%20%7C%20TypeScript-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Vector Search](https://img.shields.io/badge/RAG-FAISS%20%2F%20Chroma-FF6F00?style=flat-square)](https://github.com/facebookresearch/faiss)
 [![Privacy](https://img.shields.io/badge/Privacy-DPDP%20Act%20Ready-green?style=flat-square)](https://www.meity.gov.in/data-protection-framework)
 
@@ -40,7 +40,7 @@ India runs over **3,000+ central and state schemes**, yet millions miss out due 
 ```mermaid
 graph LR
     User["📱 Citizen / Family"] --> UI["🖥️ React 18 + PWA Client"]
-    UI --> API["⚡ FastAPI Gateway"]
+    UI --> API["⚡ Node.js / Express API Gateway"]
     API --> RuleEngine["⚙️ Deterministic Rule Engine"]
     API --> OCR["🔍 Document OCR Pipeline"]
     API --> RAG["🤖 Grounded RAG (FAISS + LLM)"]
@@ -55,7 +55,7 @@ graph LR
 | Domain | Technologies |
 |:---|:---|
 | **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons, PWA (IndexedDB) |
-| **Backend** | FastAPI (Python 3.11+), Pydantic v2, SQLAlchemy, Background Tasks |
+| **Backend** | Node.js (v20+ LTS), Express.js, TypeScript, Prisma ORM, JWT Authentication |
 | **Data & Vector** | PostgreSQL 15+ (Full-Text Search), FAISS / ChromaDB |
 | **AI / OCR** | LangChain / LlamaIndex, Tesseract OCR, OpenCV Image Preprocessing |
 
@@ -75,15 +75,17 @@ npm run dev
 ```
 > The web client will run at **`http://localhost:3000`** (or `http://localhost:5173`).
 
-### 2. Backend Setup *(FastAPI)*
+### 2. Backend Setup *(Node.js & Express)*
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
-> Interactive API Docs will be available at **`http://localhost:8000/docs`**.
+> API server will run at **`http://localhost:5000`** (or `http://localhost:8000`).
 
 ---
 
