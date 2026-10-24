@@ -582,12 +582,6 @@
   color: #f85c13;
 }
 
-.digital-india-logo {
-  width: 73px;
-  height: 49px;
-  object-fit: contain;
-}
-
 /* ==========================================================================
    TIER 3: PRIMARY NAVIGATION ROW
    ========================================================================== */
@@ -818,10 +812,6 @@
   .search:focus-within,
   .search.has-value {
     width: min(100%, 280px);
-  }
-
-  .digital-india-logo {
-    display: none;
   }
 
   .register-animation-btn {
