@@ -1,4 +1,8 @@
-export default function HowSarthiWorksSection() {
+interface HowSarthiWorksSectionProps {
+  onNavigate: (destination: string) => void
+}
+
+export default function HowSarthiWorksSection({ onNavigate }: HowSarthiWorksSectionProps) {
   return (
 <section className="how-section" aria-label="How Sarthi Works">
       <div className="how-container">
@@ -138,10 +142,10 @@ export default function HowSarthiWorksSection() {
 
         {/* CTA buttons */}
         <div className="how-cta-row">
-          <button type="button" className="how-cta-primary">
+          <button type="button" className="how-cta-primary" onClick={() => onNavigate('Checklist')}>
             Check Eligibility <span aria-hidden="true">→</span>
           </button>
-          <button type="button" className="how-cta-ghost">
+          <button type="button" className="how-cta-ghost" onClick={() => onNavigate('Explore')}>
             Browse all schemes <span aria-hidden="true">→</span>
           </button>
         </div>

@@ -26,7 +26,7 @@ const LANG_COLUMNS = [
     { code: 'kok', label: 'कोंकणी' },
     { code: 'sa', label: 'संस्कृतम्' },
     { code: 'mai', label: 'मैथिली' },
-    { code: 'bho', label: 'बड़' },
+    { code: 'bho', label: 'भोजपुरी' },
     { code: 'sd', label: 'सिन्धी' },
     { code: 'mni', label: 'मणिपुरी' },
     { code: 'ne', label: 'नेपाली' },
@@ -39,7 +39,7 @@ const LANG_COLUMNS = [
     { code: 'ja', label: '日本語' },
     { code: 'ko', label: '한국어' },
     { code: 'ru', label: 'русский' },
-    { code: 'nl', label: 'Dutch' },
+    { code: 'nl', label: 'Nederlands' },
   ],
   [
     { code: 'fr', label: 'français' },
@@ -50,7 +50,7 @@ const LANG_COLUMNS = [
     { code: 'uz', label: "O'zbek" },
     { code: 'es', label: 'Español' },
     { code: 'zh-CN', label: '简体中文' },
-    { code: 'zh-TW', label: '中国传统的' },
+    { code: 'zh-TW', label: '繁體中文' },
     { code: 'fa', label: 'فارسی' },
   ],
 ]
@@ -89,6 +89,7 @@ export default function App() {
   const [collapsedItems, setCollapsedItems] = useState<string[]>([])
 
   const [searchQuery, setSearchQuery] = useState('')
+  const [schemeSearchQuery, setSchemeSearchQuery] = useState('')
   const searchInputRef = useRef<HTMLInputElement>(null)
   const navContainerRef = useRef<HTMLDivElement>(null)
   const accountRef = useRef<HTMLDivElement>(null)
@@ -160,6 +161,25 @@ export default function App() {
   }, [])
 
   const visibleNavItems = navigationItems.filter(item => !collapsedItems.includes(item))
+
+  const handleSchemeSearch = (query: string) => {
+    setSchemeSearchQuery(query)
+    setActiveNav('Explore')
+    setActiveTab('Explore')
+  }
+
+  const handleCategorySelect = (category: string) => {
+    setActiveNav('Explore')
+    setActiveTab('Explore')
+    const target = document.getElementById(`category-${category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)
+      ?? document.getElementById('category-index')
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
+  const handleNavigate = (destination: string) => {
+    setActiveNav(destination)
+    setActiveTab(destination)
+  }
 
   return (
     <>
@@ -252,8 +272,10 @@ export default function App() {
                 <button
                   type="button"
                   className="lang-dropdown__trigger"
-                  aria-haspopup="listbox"
+                  aria-haspopup="true"
+                  aria-controls="language-options"
                   aria-expanded={isLangOpen}
+                  onClick={() => setIsLangOpen(open => !open)}
                 >
                   <span>{currentLang.toUpperCase()}</span>
                   <svg aria-hidden="true" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -262,7 +284,7 @@ export default function App() {
                 </button>
 
                 {isLangOpen && (
-                  <div className="lang-dropdown__panel" role="listbox" aria-label="Select language">
+                  <div id="language-options" className="lang-dropdown__panel" aria-label="Select language">
                     <div className="lang-dropdown__grid">
                       {LANG_COLUMNS.map((col, ci) => (
                         <ul key={ci} className="lang-dropdown__col">
@@ -270,8 +292,6 @@ export default function App() {
                             <li key={lang.code}>
                               <button
                                 type="button"
-                                role="option"
-                                aria-selected={currentLang === lang.label}
                                 className={`lang-dropdown__item ${currentLang === lang.label ? 'is-active' : ''}`}
                                 onClick={() => {
                                   setCurrentLang(lang.label)
@@ -536,7 +556,11 @@ export default function App() {
           HERO / BANNER SECTION
           ==================================================================== */}
       <main id="main-content">
-        <HeroSection />
+        <HeroSection
+          onSearch={handleSchemeSearch}
+          searchQuery={schemeSearchQuery}
+          onCategorySelect={handleCategorySelect}
+        />
 
         {/* ====================================================================
             PORTAL STATISTICS SECTION (Matching Government Portal Reference)
@@ -546,12 +570,12 @@ export default function App() {
         {/* ====================================================================
             DISCOVER SCHEMES BY CATEGORY SECTION
             ==================================================================== */}
-        <CategorySchemesSection />
+        <CategorySchemesSection onCategorySelect={handleCategorySelect} />
 
         {/* ====================================================================
             HOW SARTHI WORKS SECTION
             ==================================================================== */}
-        <HowSarthiWorksSection />
+        <HowSarthiWorksSection onNavigate={handleNavigate} />
       </main>
 
 
