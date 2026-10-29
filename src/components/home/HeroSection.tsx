@@ -47,7 +47,7 @@ export default function HeroSection() {
           </form>
 
           {/* Category Pills */}
-          <div className="hero-categories" role="list" aria-label="Browse by category">
+          <div className="hero-categories" aria-label="Browse by category">
             {[
               {
                 label: 'Education',
@@ -110,7 +110,7 @@ export default function HeroSection() {
                 ),
               },
             ].map((cat) => (
-              <button key={cat.label} type="button" className="hero-cat-pill" role="listitem">
+              <button key={cat.label} type="button" className="hero-cat-pill">
                 <span className="hero-cat-pill__icon" aria-hidden="true">{cat.icon}</span>
                 <span className="hero-cat-pill__label">{cat.label}</span>
               </button>

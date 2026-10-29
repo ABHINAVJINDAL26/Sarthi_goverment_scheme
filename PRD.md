@@ -465,7 +465,7 @@ Date of birth or age, gender, state, district, rural or urban, annual household 
 
 - Uploaded images: deleted after processing per [D6].
 - Extracted fields: kept only if the user chooses to save.
-- Account deletion shall remove profile, family members, documents, saved items, tracker entries and notifications. Staff audit entries remain but contain no citizen personal data.
+- Account deletion shall remove profile, family members, documents, evaluation snapshots (F4), saved items, tracker entries and notifications. Staff audit entries remain but contain no citizen personal data.
 - A user's data export shall include their profile, family members, saved items, tracker entries and consents.
 
 ### 7.5 Seed and reference data required before demo
@@ -529,7 +529,7 @@ Date of birth or age, gender, state, district, rural or urban, annual household 
 **MVP-Core (build fully)**
 - F1 Onboarding, login and language (simplified login per [D1])
 - F2 Profile wizard (six steps, dynamic skipping for a few fields)
-- F3 Discovery and search (basic full-text search is enough)
+- F3 Discovery and search (unified keyword search over scheme title and benefits via PostgreSQL full-text search)
 - F4 Eligibility engine
 - F5 Ranking (weighted score and mandatory gate)
 - F6 Scheme detail (five tabs)
