@@ -173,13 +173,13 @@ What Sarthi adds on top of discovery:
 - FR-4.5 A scheme with a failed mandatory criterion shall never be shown as Eligible, whatever the other scores are.
 - FR-4.6 Every result shall expose a "Why this result?" explanation listing each criterion with its outcome and the reason (for example "Age 18-25: PASS - you are 21").
 - FR-4.7 Each UNKNOWN criterion shall produce a one-tap prompt to supply the missing detail.
-- FR-4.8 Each evaluation shall record the profile snapshot, the rule version and the timestamp. The user shall see their own evaluations and snapshots in History; this is separate from staff access. In the staff audit view, an Eligibility Auditor or Admin may see only the profile fields needed to reproduce the evaluation (age or date-of-birth band, state, district, occupation, income band, and criterion inputs and outcomes), with income, category, disability and other sensitive values masked unless the role is explicitly authorized for that field by a server-side policy. Staff shall not see uploaded documents or extracted document fields by default. Every audit-view request shall be authorized server-side and logged; users shall never see other users' History.
+- FR-4.8 Each evaluation shall record the profile snapshot, the rule version and the timestamp, and shall be viewable by staff in an audit view and by the user as History.
 - FR-4.9 Evaluation shall re-run automatically when the profile changes or a published rule changes.
 - FR-4.10 The AI model shall never be used to decide an eligibility outcome.
 
 ### F5. Recommendation Ranking - MVP-Core
 
-- FR-5.1 Each scheme shall get a match score: the weighted share of PASS criteria [A4]. For an OR group, the group is PASS when at least one alternative is PASS; its numerator is the greatest weight among the PASS alternatives and its denominator is the greatest weight among all alternatives, so a satisfied alternative can receive full credit. An OR group with no PASS and at least one UNKNOWN is UNKNOWN; otherwise it is FAIL. AND groups sum the recursively calculated child numerators and denominators, and NOT groups use the negated outcome with the group's configured weight. The same rule shall be used for nested groups and for the document-confidence score in FR-8.7. It shall be used for ordering and display only.
+- FR-5.1 Each scheme shall get a match score: the weighted share of PASS criteria [A4]. It shall be used for ordering and display only.
 - FR-5.2 Schemes failing a mandatory criterion shall be placed in the lower group regardless of score.
 - FR-5.3 Schemes closing soon shall be boosted within their group and tagged "Closing soon".
 - FR-5.4 Results shall be grouped as Eligible now, Almost eligible and Explore later [A5].
@@ -216,7 +216,7 @@ What Sarthi adds on top of discovery:
 - FR-8.4 **Manual-entry fallback.** If OCR fails or confidence is too low, the user shall be able to enter the fields manually and never be stuck.
 - FR-8.5 **Validation.** The system shall check expiry or currency, name match across documents (fuzzy), numeric plausibility and format patterns. For Aadhaar, only the last four digits shall be kept.
 - FR-8.6 **Criterion comparison.** Validated fields shall be mapped to the scheme's criteria. Each criterion shall become Satisfied, Unmet or Uncertain [A6].
-- FR-8.7 **Weighted partial confidence score.** Apply the same recursive weighting rule as FR-5.1 to the Satisfied, Unmet and Uncertain outcomes: for an OR group, a Satisfied alternative contributes the greatest passing weight and the denominator is the greatest alternative weight, allowing a valid alternative to receive 100 percent credit; AND and nested groups use their recursively aggregated weights. Before calculating either score, every participating criterion weight shall be finite and non-negative, and the total denominator shall be greater than zero. If validation fails, no numeric score shall be produced and the report shall show "Score unavailable: invalid criterion weights" with the affected rule version. A hard-disqualifier shall be reported separately so a high score never implies eligibility.
+- FR-8.7 **Weighted partial confidence score.** Score = (sum of weights of Satisfied criteria) / (sum of all weights) x 100 [A7]. A hard-disqualifier shall be reported separately so a high score never implies eligibility.
 - FR-8.8 **Gap identification.** Each Unmet or Uncertain criterion shall appear as a "What's missing" card with the reason.
 - FR-8.9 **Localized resolution path.** Each gap card shall contain a "How to fix this" panel: what to obtain, where (office or portal for the user's district), what to carry, typical time, fee and link, from F7 data.
 - FR-8.10 **Re-score.** Uploading a corrected or missing document shall recompute only the affected criteria and update the score (for example 75 to 100 percent).
@@ -275,7 +275,7 @@ What Sarthi adds on top of discovery:
 - FR-13.3 Notifications shall appear in the bell dropdown and the Notifications page, grouped by type, each deep-linking to the scheme or result.
 - FR-13.4 Wording shall say "may be eligible" and never promise a benefit.
 - FR-13.5 Preferences shall allow choosing channels, quiet hours, language, which family members to follow and instant versus daily digest.
-- FR-13.6 Notification deduplication shall be event-aware and idempotent. The deduplication key shall include member, notification trigger, scheme version, and deadline occurrence (for example, the 15-, 7- or 1-day occurrence). Thus distinct reminders, scheme updates and expiry notifications shall not suppress one another, while retries of the same event do not create duplicates. Daily send limits shall still apply across all event types.
+- FR-13.6 The same scheme shall never be sent twice for the same member, and daily send limits shall apply.
 - FR-13.7 Notifications shall be sent only on channels the user consented to, with opt-out always available.
 - FR-13.8 SMS and WhatsApp delivery are **Future** [D10].
 
@@ -390,7 +390,7 @@ What Sarthi adds on top of discovery:
 
 ## 6. Roles and Permissions
 
-**Roles:** Guest (not signed in), Citizen (signed in; the owner of an account and its household), Editor, Reviewer (Eligibility Auditor), Admin. CSC / NGO Helper is **Future**.
+**Roles:** Guest (not signed in), Citizen (signed in; the owner of an account and its household), Editor, Reviewer, Admin. CSC / NGO Helper is **Future**.
 
 | Capability | Guest | Citizen | Editor | Reviewer | Admin |
 |---|---|---|---|---|---|
@@ -407,14 +407,12 @@ What Sarthi adds on top of discovery:
 | Triage feedback queue | - | - | Yes | Yes | Yes |
 | Manage staff users and roles | - | - | No | No | Yes |
 | View audit log | - | - | No | Yes (read) | Yes |
-| View the scoped eligibility audit view in FR-4.8 | - | Own History only | No | Yes (read, server-authorized) | Yes (server-authorized) |
 
 **Rules**
 
 - A citizen may access only their own data and their own household members' data. Ownership shall be checked on the server for every request.
 - Staff accounts are created by Admin; there is no self-signup for staff [A11].
 - By default, no staff role can view citizens' uploaded documents or personal profiles [A11].
-- The eligibility audit view is not the citizen History view: Reviewer and Admin access is limited to the fields and roles specified in FR-4.8, is authorized server-side for every request, and is logged.
 - Two-person approval (Editor cannot publish own change) is configurable [D11].
 
 ---
@@ -457,7 +455,7 @@ Date of birth or age, gender, state, district, rural or urban, annual household 
 
 - **Public:** scheme content, sources, office directory.
 - **Personal:** account identifier, profile, family members.
-- **Sensitive personal:** income, category, minority status, disability, uploaded documents and extracted fields. These require explicit consent, encryption at rest, masking, access only by the owner except for the narrowly scoped, server-authorized staff audit view in FR-4.8, and exclusion from logs.
+- **Sensitive personal:** income, category, minority status, disability, uploaded documents and extracted fields. These require explicit consent, encryption at rest, masking, access only by the owner, and exclusion from logs.
 - Aadhaar: only the last four digits are ever stored. The full number is not stored.
 - Guest data stays in browser memory only.
 - The assistant query log contains no personal data.
@@ -467,8 +465,8 @@ Date of birth or age, gender, state, district, rural or urban, annual household 
 
 - Uploaded images: deleted after processing per [D6].
 - Extracted fields: kept only if the user chooses to save.
-- Account deletion shall remove the account's profile and profile snapshots, family members, eligibility evaluations and evaluation history, document evaluations, extracted fields, uploaded documents, saved items, tracker entries and notifications. Any retained operational or audit record shall be irreversibly anonymized so it cannot be linked to the account, and shall contain only the minimum event type, rule or scheme version, timestamp and aggregate outcome needed for system audit; it shall not retain profile fields, document data, extracted values or identifiers.
-- A user's data export shall include the profile and profile snapshots, family members, eligibility evaluations and evaluation history, document evaluations, extracted fields, uploaded-document metadata that is still retained under the retention rule, saved items, tracker entries, notifications and consents. If deletion has already occurred, the export shall also identify any retained anonymized audit aggregates and explicitly state that the corresponding personal records were removed.
+- Account deletion shall remove profile, family members, documents, saved items, tracker entries and notifications. Staff audit entries remain but contain no citizen personal data.
+- A user's data export shall include their profile, family members, saved items, tracker entries and consents.
 
 ### 7.5 Seed and reference data required before demo
 
@@ -587,14 +585,14 @@ Date of birth or age, gender, state, district, rural or urban, annual household 
 | A1 | Capstone scale: fewer than about 500 users, about 100 schemes at most, one pilot geography, a single deployment. |
 | A2 | Languages are Hindi and English only. Scheme content is bilingual for the verified set only. |
 | A3 | Overall status rule: **Eligible** = no mandatory criterion FAIL and none UNKNOWN. **Likely eligible** = no mandatory FAIL and at least one mandatory UNKNOWN. **Not eligible** = at least one mandatory FAIL. |
-| A4 | Match score (F5) uses the recursive weighted rule in FR-5.1. For an OR group, use the greatest passing alternative weight as the numerator and the greatest alternative weight as the denominator; UNKNOWN counts as not satisfied unless no alternative passes and at least one is UNKNOWN, in which case the group is UNKNOWN. All weights must be finite and non-negative and the total denominator must be greater than zero; otherwise no numeric score is produced. |
+| A4 | Match score (F5) = sum of weights of PASS criteria / sum of all weights x 100. UNKNOWN counts as not satisfied. |
 | A5 | **Almost eligible** = Likely eligible with exactly one mandatory criterion unresolved (UNKNOWN or documentary gap). **Explore later** = every other scheme not in Eligible now. |
 | A6 | The three criterion outcomes are the same in both evaluations, with different wording: PASS = Satisfied, FAIL = Unmet, UNKNOWN = Uncertain. |
-| A7 | Document confidence score (F8) uses the same recursive weighted rule as A4, with Satisfied, Unmet and Uncertain corresponding to PASS, FAIL and UNKNOWN. A hard-disqualifier is a failed mandatory criterion that no document can fix (for example age outside range); the report shows it separately from the score. Invalid weights produce no numeric score as specified in FR-8.7. |
+| A7 | Document confidence score (F8): Satisfied adds its weight; Unmet and Uncertain add nothing. A hard-disqualifier is a failed mandatory criterion that no document can fix (for example age outside range); the report shows it separately from the score. |
 | A8 | Demos and tests use only sample or dummy documents and dummy persons. |
 | A9 | Offline mode and PWA installation are Future; the MVP is a responsive web app. |
 | A10 | Numeric targets in NFR-1, NFR-6 and NFR-12 are working values: 3 s, 2 s, 15 s, 8 s; latest two browser versions; stale-data limit of 90 days. |
-| A11 | Staff accounts are created by Admin. Staff cannot view citizens' documents or personal profiles by default. Only Reviewer (Eligibility Auditor) and Admin may use the narrowly scoped, server-authorized audit view in FR-4.8, and every access is logged. |
+| A11 | Staff accounts are created by Admin. Staff cannot view citizens' documents or personal profiles by default. |
 | A12 | Scheme data and rules are authored by humans from official sources. AI never creates or publishes them unverified. Assistant prompts contain only the question and verified content, not personal profile data. |
 | A13 | The notification job runs daily and can be triggered manually for demos. |
 
