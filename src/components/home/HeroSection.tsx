@@ -1,10 +1,4 @@
-interface HeroSectionProps {
-  onSearch: (query: string) => void
-  searchQuery: string
-  onCategorySelect: (category: string) => void
-}
-
-export default function HeroSection({ onSearch, searchQuery, onCategorySelect }: HeroSectionProps) {
+export default function HeroSection() {
   return (
 <section className="hero-section" aria-label="Find government schemes">
       <div className="hero-container">
@@ -30,8 +24,8 @@ export default function HeroSection({ onSearch, searchQuery, onCategorySelect }:
             className="hero-search"
             onSubmit={(e) => {
               e.preventDefault()
-              const q = (e.currentTarget.querySelector('input') as HTMLInputElement).value.trim()
-              if (q) onSearch(q)
+              const q = (e.currentTarget.querySelector('input') as HTMLInputElement).value
+              if (q.trim()) alert(`Searching: ${q}`)
             }}
           >
             <span className="hero-search__icon" aria-hidden="true">
@@ -51,11 +45,6 @@ export default function HeroSection({ onSearch, searchQuery, onCategorySelect }:
               <span className="hero-search__btn-arrow" aria-hidden="true">→</span>
             </button>
           </form>
-          {searchQuery && (
-            <p className="hero-search-result" role="status">
-              Showing scheme results for “{searchQuery}”
-            </p>
-          )}
 
           {/* Category Pills */}
           <div className="hero-categories" role="list" aria-label="Browse by category">
@@ -121,7 +110,7 @@ export default function HeroSection({ onSearch, searchQuery, onCategorySelect }:
                 ),
               },
             ].map((cat) => (
-              <button key={cat.label} type="button" className="hero-cat-pill" role="listitem" onClick={() => onCategorySelect(cat.label)}>
+              <button key={cat.label} type="button" className="hero-cat-pill" role="listitem">
                 <span className="hero-cat-pill__icon" aria-hidden="true">{cat.icon}</span>
                 <span className="hero-cat-pill__label">{cat.label}</span>
               </button>

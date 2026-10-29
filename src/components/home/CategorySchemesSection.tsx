@@ -1,23 +1,10 @@
-interface CategorySchemesSectionProps {
-  onCategorySelect: (category: string) => void
-}
-
-export default function CategorySchemesSection({ onCategorySelect }: CategorySchemesSectionProps) {
+export default function CategorySchemesSection() {
   return (
-<section id="category-index" className="category-schemes-section" aria-label="Discover Schemes by Category">
+<section className="category-schemes-section" aria-label="Discover Schemes by Category">
       <div className="category-container">
         {/* Header Block */}
         <div className="category-header">
           <span className="category-eyebrow">EXPLORE SCHEMES</span>
-          <div className="category-tricolor-line" aria-hidden="true">
-            <span className="category-tricolor-line__saffron" />
-            <span className="category-tricolor-line__white" />
-            <span className="category-tricolor-line__green" />
-          </div>
-          <h2 className="category-heading">
-            Discover Schemes by{' '}
-            <span className="category-heading__cat">Cat</span><span className="category-heading__egory">egory</span>
-          </h2>
           <p className="category-subtext">
             Explore government support across different areas of life.
           </p>
@@ -27,7 +14,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
         <div className="category-main-grid">
 
           {/* Card 1: Education Schemes */}
-          <div className="scheme-feature-card" id="category-education">
+          <div className="scheme-feature-card">
             <div className="scheme-card__illustration scheme-card__illustration--education">
               {/* Sky */}
               <svg viewBox="0 0 220 160" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0}}>
@@ -93,7 +80,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="scheme-card__content">
               <h3 className="scheme-card__title">Education Schemes</h3>
               <p className="scheme-card__desc">Scholarships, fee support and learning opportunities for students.</p>
-              <button type="button" className="scheme-card__btn" onClick={() => onCategorySelect('Education')}>
+              <button type="button" className="scheme-card__btn">
                 <span>Explore Education</span>
                 <span aria-hidden="true">→</span>
               </button>
@@ -101,7 +88,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
           </div>
 
           {/* Card 2: Healthcare Schemes */}
-          <div className="scheme-feature-card" id="category-health">
+          <div className="scheme-feature-card">
             <div className="scheme-card__illustration scheme-card__illustration--healthcare">
               <svg viewBox="0 0 220 160" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0}}>
                 <defs>
@@ -163,7 +150,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="scheme-card__content">
               <h3 className="scheme-card__title">Healthcare Schemes</h3>
               <p className="scheme-card__desc">Health insurance, treatment support and wellness benefits for all.</p>
-              <button type="button" className="scheme-card__btn" onClick={() => onCategorySelect('Health')}>
+              <button type="button" className="scheme-card__btn">
                 <span>Explore Healthcare</span>
                 <span aria-hidden="true">→</span>
               </button>
@@ -171,7 +158,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
           </div>
 
           {/* Card 3: Agriculture Schemes */}
-          <div className="scheme-feature-card" id="category-agriculture">
+          <div className="scheme-feature-card">
             <div className="scheme-card__illustration scheme-card__illustration--agriculture">
               <svg viewBox="0 0 220 160" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0}}>
                 <defs>
@@ -238,7 +225,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="scheme-card__content">
               <h3 className="scheme-card__title">Agriculture Schemes</h3>
               <p className="scheme-card__desc">Financial support, subsidies and resources for farmers and rural communities.</p>
-              <button type="button" className="scheme-card__btn" onClick={() => onCategorySelect('Agriculture')}>
+              <button type="button" className="scheme-card__btn">
                 <span>Explore Agriculture</span>
                 <span aria-hidden="true">→</span>
               </button>
@@ -246,7 +233,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
           </div>
 
           {/* Card 4: Employment Schemes */}
-          <div className="scheme-feature-card" id="category-employment">
+          <div className="scheme-feature-card">
             <div className="scheme-card__illustration scheme-card__illustration--employment">
               <svg viewBox="0 0 220 160" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0}}>
                 <defs>
@@ -308,7 +295,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="scheme-card__content">
               <h3 className="scheme-card__title">Employment Schemes</h3>
               <p className="scheme-card__desc">Job opportunities, skill development and self-employment support.</p>
-              <button type="button" className="scheme-card__btn" onClick={() => onCategorySelect('Employment')}>
+              <button type="button" className="scheme-card__btn">
                 <span>Explore Employment</span>
                 <span aria-hidden="true">→</span>
               </button>
@@ -322,7 +309,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="side-cat-row">
 
               {/* Housing Schemes */}
-              <button id="category-housing" type="button" className="side-cat-item" onClick={() => onCategorySelect('Housing')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--teal">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 10.5 12 3l9 7.5" />
@@ -331,10 +318,10 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">Housing Schemes</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
               {/* Women & Child */}
-              <button id="category-women-child" type="button" className="side-cat-item" onClick={() => onCategorySelect('Women & Child')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--coral">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -345,10 +332,10 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">Women &amp; Child Schemes</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
               {/* Senior Citizen */}
-              <button id="category-senior-citizen" type="button" className="side-cat-item" onClick={() => onCategorySelect('Senior Citizen')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--blue">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="10" cy="5" r="3" />
@@ -360,7 +347,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">Senior Citizen Schemes</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
             </div>
 
@@ -371,7 +358,7 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
             <div className="side-cat-row">
 
               {/* Disability */}
-              <button id="category-disability" type="button" className="side-cat-item" onClick={() => onCategorySelect('Disability')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--purple">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="4" r="2" />
@@ -381,10 +368,10 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">Disability Schemes</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
               {/* Business */}
-              <button id="category-business" type="button" className="side-cat-item" onClick={() => onCategorySelect('Business')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--indigo">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
@@ -395,10 +382,10 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">Business Schemes</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
               {/* More */}
-              <button id="category-more-categories" type="button" className="side-cat-item" onClick={() => onCategorySelect('More Categories')}>
+              <div className="side-cat-item">
                 <div className="side-cat-circle side-cat-circle--amber">
                   <svg viewBox="0 0 24 24" width="26" height="26" fill="#ffffff">
                     <circle cx="5" cy="12" r="2.2" />
@@ -408,12 +395,12 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
                 </div>
                 <span className="side-cat-item__label">More Categories</span>
                 <span className="side-cat-item__arrow">→</span>
-              </button>
+              </div>
 
             </div>
 
             {/* Solid Orange Action Button */}
-            <button type="button" className="side-cat-all-btn" onClick={() => onCategorySelect('index')}>
+            <button type="button" className="side-cat-all-btn">
               <span>View All Scheme Categories</span>
               <span aria-hidden="true">→</span>
             </button>
@@ -424,3 +411,4 @@ export default function CategorySchemesSection({ onCategorySelect }: CategorySch
     </section>
   )
 }
+
