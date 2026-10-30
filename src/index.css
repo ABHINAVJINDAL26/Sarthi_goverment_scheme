@@ -18,7 +18,7 @@
 
   body {
     min-width: 320px;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   #root {
@@ -75,9 +75,8 @@
 .site-header {
   width: 100%;
   background: #fff;
-  border-bottom: 2px solid #f6b35d;
   position: relative;
-  z-index: 50;
+  z-index: 150;
   flex-shrink: 0;
 }
 
@@ -430,7 +429,7 @@
   min-width: 230px;
   padding: 6px 0;
   list-style: none;
-  z-index: 100;
+  z-index: 200;
 }
 
 .bell-dropdown {
@@ -588,8 +587,13 @@
    TIER 3: PRIMARY NAVIGATION ROW
    ========================================================================== */
 .primary-navigation {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   height: 56px;
-  background: #fff;
+  background: #ffffff;
+  border-bottom: 2px solid #f6b35d;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .primary-navigation .header-container {
@@ -1276,10 +1280,11 @@
 
 .category-eyebrow {
   display: inline-block;
-  font-size: 14px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #ea580c;
+  color: #f85c13;
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -1402,7 +1407,7 @@
   align-items: center;
   gap: 5px;
   align-self: flex-start;
-  background: #ffffff;
+  background: transparent;
   border: 1.5px solid #f85c13;
   color: #f85c13;
   border-radius: 999px;
@@ -1410,8 +1415,13 @@
   font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 140ms ease, color 140ms ease, transform 120ms ease;
+  transition: background 140ms ease, transform 120ms ease;
   white-space: nowrap;
+}
+
+.scheme-card__btn:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
 }
 
 /* ---- Side Category Block ---- */
@@ -1502,24 +1512,29 @@
   line-height: 1;
 }
 
-/* ---- Big orange CTA button ---- */
+/* ---- Big CTA button — outline orange style ---- */
 .side-cat-all-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  background: #f85c13;
-  color: #ffffff;
-  border: none;
+  background: transparent;
+  color: #f85c13;
+  border: 1.5px solid #f85c13;
   border-radius: 999px;
-  padding: 13px 20px;
+  padding: 12px 20px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   margin-top: 14px;
-  box-shadow: 0 4px 14px rgba(248, 92, 19, 0.3);
   white-space: nowrap;
+  transition: background 140ms ease, transform 120ms ease;
+}
+
+.side-cat-all-btn:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
 }
 
 /* ---- Responsive ---- */
@@ -1592,45 +1607,18 @@
 /* ---- Header ---- */
 .how-header {
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .how-eyebrow {
   display: inline-block;
-  font-size: 14px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #f85c13;
   text-transform: uppercase;
   margin-bottom: 8px;
-}
-
-.how-tricolor {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 5px;
-  margin: 0 auto 14px;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.how-tricolor__s { flex: 1; height: 100%; background: #f85c13; }
-.how-tricolor__w { flex: 1; height: 100%; background: #ffffff; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
-.how-tricolor__g { flex: 1; height: 100%; background: #16a34a; }
-
-.how-heading {
-  font-size: clamp(26px, 2.6vw, 38px);
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 12px;
-}
-
-.how-heading--orange {
-  color: #f85c13;
 }
 
 .how-subtext {
@@ -1651,40 +1639,15 @@
   z-index: 2;
 }
 
-/* Left segment (01→02): saffron dashed line */
-.how-steps-track::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: calc(100% / 6);
-  right: 50%;                    /* stops at center */
-  height: 0;
-  border-top: 2.5px dashed #f85c13;
-  transform: translateY(-50%);
-  z-index: 0;
-}
-
-/* Right segment (02→03): green dashed line */
-.how-steps-track::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;                     /* starts at center */
-  right: calc(100% / 6);
-  height: 0;
-  border-top: 2.5px dashed #16a34a;
-  transform: translateY(-50%);
-  z-index: 0;
-}
-
 .how-step-badge {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin: 0 auto;
   width: 44px;
   height: 44px;
   background: #f85c13;
   color: #ffffff;
+  border: 3.5px solid #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1837,16 +1800,21 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #f85c13;
-  color: #ffffff;
-  border: none;
+  background: transparent;
+  color: #f85c13;
+  border: 1.5px solid #f85c13;
   border-radius: 999px;
-  padding: 14px 36px;
-  font-size: 15.5px;
+  padding: 12px 36px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(248, 92, 19, 0.35);
   white-space: nowrap;
+  transition: background 140ms ease, transform 120ms ease;
+}
+
+.how-cta-primary:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
 }
 
 .how-cta-ghost {
@@ -1854,12 +1822,19 @@
   align-items: center;
   gap: 6px;
   background: transparent;
-  color: #0f172a;
-  border: none;
+  color: #f85c13;
+  border: 1.5px solid #f85c13;
+  border-radius: 999px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  padding: 14px 8px;
+  padding: 12px 28px;
+  transition: background 140ms ease, transform 120ms ease;
+}
+
+.how-cta-ghost:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
 }
 
 /* ---- Responsive ---- */
@@ -1885,5 +1860,572 @@
   }
   .how-steps-track {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   CENTRAL / STATE-SPECIFIC SCHEMES SECTION
+   ========================================================================== */
+.central-state-section {
+  background: #f5f7fa;
+  padding: 40px 0 52px;
+  position: relative;
+}
+
+.central-state-container {
+  width: min(100% - 40px, 1100px);
+  margin-inline: auto;
+}
+
+/* Header & Toggle */
+.central-state-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Eyebrow label */
+.central-state-eyebrow {
+  display: inline-block;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #f85c13;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.central-state-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  border-radius: 999px;
+  padding: 3px;
+  gap: 3px;
+  width: 186px;
+  justify-content: stretch;
+}
+
+.toggle-tab-btn {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #78716c;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 6px 0;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.toggle-tab-btn:hover {
+  color: #f85c13;
+  background: rgba(248, 92, 19, 0.08);
+}
+
+.toggle-tab-btn.is-active {
+  background: #f85c13;
+  color: #ffffff;
+  font-weight: 700;
+  border-color: #f85c13;
+  box-shadow: 0 2px 10px rgba(248, 92, 19, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   VIEW 1: CENTRAL SCHEMES (Ministries 5-Column Grid)
+   -------------------------------------------------------------------------- */
+.central-schemes-view {
+  animation: fadeIn 0.18s ease;
+}
+
+.central-ministries-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.ministry-card {
+  background: #ffffff;
+  border: 1px solid #e8edf3;
+  border-radius: 13px;
+  padding: 18px 14px;
+  min-height: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  outline: none;
+}
+
+.ministry-card:hover,
+.ministry-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+  border-color: #c6d0dc;
+}
+
+.ministry-card__name {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.central-view-more-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.central-view-more-btn {
+  background: transparent;
+  border: 1.5px solid #f85c13;
+  border-radius: 999px;
+  padding: 7px 24px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f85c13;
+  cursor: pointer;
+  transition: background 140ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+
+.central-view-more-btn:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   VIEW 2: STATES / UTS SCHEMES (Interactive Map + Right Column)
+   -------------------------------------------------------------------------- */
+.state-schemes-view {
+  animation: fadeIn 0.18s ease;
+}
+
+.state-schemes-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Left Column: Map */
+.state-map-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.state-map-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.india-svg-map {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  display: block;
+  overflow: visible;
+}
+
+.india-state-path {
+  cursor: pointer;
+  outline: none;
+  transition: fill 0.18s ease, stroke 0.18s ease, stroke-width 0.18s ease;
+}
+
+.india-state-path:hover,
+.india-state-path:focus-visible,
+.india-state-path.is-active {
+  fill: #FFFFFF !important;
+  stroke: #173F73 !important;
+  stroke-width: 1.2px;
+}
+
+.india-state-path:focus-visible {
+  filter: drop-shadow(0 0 4px rgba(23, 63, 115, 0.5));
+}
+
+/* Tooltip */
+.state-map-tooltip {
+  position: absolute;
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  line-height: 1.2;
+  transition: opacity 0.12s ease;
+}
+
+.state-map-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0 4px;
+  border-style: solid;
+  border-color: #000000 transparent transparent transparent;
+}
+
+.state-map-tooltip--below::after {
+  bottom: auto;
+  top: -4px;
+  border-width: 0 4px 4px 4px;
+  border-color: transparent transparent #000000 transparent;
+}
+
+/* Right Column: Text & CTA */
+.state-content-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.state-heading {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: clamp(24px, 2.5vw, 34px);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.state-description {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #475569;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  max-width: 480px;
+}
+
+.state-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #f85c13;
+  border: 1.5px solid #f85c13;
+  border-radius: 999px;
+  padding: 8px 28px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 140ms ease, transform 120ms ease;
+}
+
+.state-explore-btn:hover {
+  background: rgba(248, 92, 19, 0.08);
+  transform: translateY(-1px);
+}
+
+.state-explore-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .central-ministries-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  .central-ministries-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .state-schemes-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .state-content-column {
+    align-items: center;
+  }
+
+  .state-description {
+    max-width: 520px;
+  }
+
+  .state-map-wrapper {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 600px) {
+  .central-ministries-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .central-state-section {
+    padding: 32px 0 40px;
+  }
+
+  .state-map-wrapper {
+    max-width: 300px;
+  }
+
+  .state-heading {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .central-ministries-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================================================
+   SITE FOOTER — India.gov.in style
+   ========================================================================== */
+
+/* ── Shared container ─────────────────────────────────────────────────────── */
+.footer-container {
+  width: min(100% - 48px, 1276px);
+  margin-inline: auto;
+}
+
+/* ── Top hairline rule ────────────────────────────────────────────────────── */
+.footer-top-rule {
+  width: 100%;
+  height: 1px;
+  background: #555555;
+}
+
+/* ── Main footer block ────────────────────────────────────────────────────── */
+.footer-main {
+  background: #080808;
+  padding: 28px 0 24px;
+}
+
+/* ── Column grid ──────────────────────────────────────────────────────────── */
+.footer-columns {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr;
+  gap: 24px 28px;
+  align-items: start;
+}
+
+/* ── Column headings ──────────────────────────────────────────────────────── */
+.footer-col-heading {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+  margin: 0 0 10px;
+  letter-spacing: 0.01em;
+}
+
+/* Second heading within same column (Directory, News Hub) */
+.footer-col .footer-col-heading + .footer-link-list + .footer-col-heading,
+.footer-col .footer-link-list + .footer-col-heading {
+  margin-top: 18px;
+}
+
+/* ── Category sub-grid ────────────────────────────────────────────────────── */
+.footer-cat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+
+/* ── Link lists ───────────────────────────────────────────────────────────── */
+.footer-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.footer-link {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #c8c8c8;
+  text-decoration: none;
+  line-height: 1.45;
+  transition: color 120ms ease;
+  display: block;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+  outline: none;
+}
+
+.footer-link:focus-visible {
+  outline: 2px solid #f85c13;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Bottom info bar (centered) ─────────────────────────────────────────── */
+.footer-bottom-bar {
+  background: #262626;
+  padding: 26px 0 22px;
+  border-top: 1px solid #383838;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+}
+
+/* Centered NIC Logo */
+.footer-bottom-logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-nic-logo {
+  height: 44px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Centered Description */
+.footer-bottom-desc-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.footer-bottom-desc {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #bbbbbb;
+  line-height: 1.65;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.footer-bottom-reviewed {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #777777;
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .footer-columns {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 20px;
+  }
+
+  .footer-col--category {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 680px) {
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 14px;
+  }
+
+  .footer-col--category {
+    grid-column: span 2;
+  }
+
+  .footer-cat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-nic-logo {
+    height: 38px;
+  }
+
+  .footer-bottom-desc {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-col--category {
+    grid-column: span 1;
+  }
+
+  .footer-cat-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .footer-link-list {
+    gap: 9px;
+  }
+
+  .footer-link {
+    font-size: 13px;
   }
 }

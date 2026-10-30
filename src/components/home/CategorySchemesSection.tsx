@@ -5,15 +5,6 @@ export default function CategorySchemesSection() {
         {/* Header Block */}
         <div className="category-header">
           <span className="category-eyebrow">EXPLORE SCHEMES</span>
-          <div className="category-tricolor-line" aria-hidden="true">
-            <span className="category-tricolor-line__saffron" />
-            <span className="category-tricolor-line__white" />
-            <span className="category-tricolor-line__green" />
-          </div>
-          <h2 className="category-heading">
-            Discover Schemes by{' '}
-            <span className="category-heading__cat">Cat</span><span className="category-heading__egory">egory</span>
-          </h2>
           <p className="category-subtext">
             Explore government support across different areas of life.
           </p>
@@ -420,3 +411,4 @@ export default function CategorySchemesSection() {
     </section>
   )
 }
+

@@ -1,0 +1,6 @@
+export { default as HeroSection } from './HeroSection'
+export { default as PortalStatsSection } from './PortalStatsSection'
+export { default as CategorySchemesSection } from './CategorySchemesSection'
+export { default as HowSarthiWorksSection } from './HowSarthiWorksSection'
+export { default as StateSchemesSection } from './StateSchemesSection'
+export { default as FooterSection } from './FooterSection'

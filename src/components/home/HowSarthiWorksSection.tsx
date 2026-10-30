@@ -1,20 +1,11 @@
 export default function HowSarthiWorksSection() {
   return (
-<section className="how-section" aria-label="How Sarthi Works">
+    <section className="how-section" aria-label="How Sarthi Works">
       <div className="how-container">
 
         {/* Header */}
         <div className="how-header">
           <span className="how-eyebrow">HOW SARTHI WORKS</span>
-          <div className="how-tricolor" aria-hidden="true">
-            <span className="how-tricolor__s" />
-            <span className="how-tricolor__w" />
-            <span className="how-tricolor__g" />
-          </div>
-          <h2 className="how-heading">
-            Your Path to Government Benefits, Made{' '}
-            <span className="how-heading--orange">Simple</span>
-          </h2>
           <p className="how-subtext">
             From your profile to practical application guidance, Sarthi helps you take the next step with confidence.
           </p>

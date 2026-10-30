@@ -1,3 +1,16 @@
+import { useState } from 'react'
+import {
+  HeroSection,
+  PortalStatsSection,
+  CategorySchemesSection,
+  HowSarthiWorksSection,
+  StateSchemesSection,
+  FooterSection,
+} from './components/home'
+import {
+  SiteHeader,
+  MobileBottomTabs,
+} from './components/layout'
 import { useState, useRef, useEffect } from 'react'
 import HeroSection from './components/home/HeroSection'
 import PortalStatsSection from './components/home/PortalStatsSection'
@@ -77,89 +90,8 @@ const accountMenuItems = [
 ]
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false)
-  const [currentLang, setCurrentLang] = useState('English')
-  const [isLangOpen, setIsLangOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
   const [activeTab, setActiveTab] = useState('Home')
-  const [isAccountOpen, setIsAccountOpen] = useState(false)
-  const [isMemberOpen, setIsMemberOpen] = useState(false)
-  const [isBellOpen, setIsBellOpen] = useState(false)
-  const [isMoreOpen, setIsMoreOpen] = useState(false)
-  const [collapsedItems, setCollapsedItems] = useState<string[]>([])
-
-  const [searchQuery, setSearchQuery] = useState('')
-  const searchInputRef = useRef<HTMLInputElement>(null)
-  const navContainerRef = useRef<HTMLDivElement>(null)
-  const accountRef = useRef<HTMLDivElement>(null)
-  const memberRef = useRef<HTMLDivElement>(null)
-  const bellRef = useRef<HTMLDivElement>(null)
-  const moreRef = useRef<HTMLLIElement>(null)
-  const langRef = useRef<HTMLDivElement>(null)
-
-  // Close menus on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
-        setIsAccountOpen(false)
-      }
-      if (memberRef.current && !memberRef.current.contains(event.target as Node)) {
-        setIsMemberOpen(false)
-      }
-      if (bellRef.current && !bellRef.current.contains(event.target as Node)) {
-        setIsBellOpen(false)
-      }
-      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
-        setIsMoreOpen(false)
-      }
-      if (langRef.current && !langRef.current.contains(event.target as Node)) {
-        setIsLangOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  // Close on Escape key
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsAccountOpen(false)
-        setIsMemberOpen(false)
-        setIsBellOpen(false)
-        setIsMoreOpen(false)
-        setIsLangOpen(false)
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  // Responsive Navigation Collapse into "More"
-  // Order of collapse when space is constrained: Help, Saved, Checklist
-  useEffect(() => {
-    function checkOverflow() {
-      if (!navContainerRef.current) return
-      const containerWidth = navContainerRef.current.clientWidth
-
-      // If width < 1000px, start collapsing in specified order: Help, Saved, Checklist
-      if (containerWidth < 740) {
-        setCollapsedItems(['Help', 'Saved', 'Checklist'])
-      } else if (containerWidth < 850) {
-        setCollapsedItems(['Help', 'Saved'])
-      } else if (containerWidth < 980) {
-        setCollapsedItems(['Help'])
-      } else {
-        setCollapsedItems([])
-      }
-    }
-
-    checkOverflow()
-    window.addEventListener('resize', checkOverflow)
-    return () => window.removeEventListener('resize', checkOverflow)
-  }, [])
-
-  const visibleNavItems = navigationItems.filter(item => !collapsedItems.includes(item))
 
   return (
     <>
@@ -168,6 +100,14 @@ export default function App() {
         Skip to main content
       </a>
 
+      {/* Global Header */}
+      <SiteHeader
+        activeNav={activeNav}
+        onNavChange={(item) => {
+          setActiveNav(item)
+          setActiveTab(item)
+        }}
+      />
       <header className="site-header" role="banner">
 
         {/* ====================================================================
@@ -533,32 +473,28 @@ export default function App() {
 
       </header>
 
-      {/* ====================================================================
-          HERO / BANNER SECTION
-          ==================================================================== */}
+      {/* Main Home Sections */}
       <main id="main-content">
+        {/* 1. Hero / Search Banner */}
         <HeroSection />
 
-        {/* ====================================================================
-            PORTAL STATISTICS SECTION (Matching Government Portal Reference)
-            ==================================================================== */}
+        {/* 2. Platform Statistics */}
         <PortalStatsSection />
 
-        {/* ====================================================================
-            DISCOVER SCHEMES BY CATEGORY SECTION
-            ==================================================================== */}
+        {/* 3. Discover Schemes by Category */}
         <CategorySchemesSection />
 
-        {/* ====================================================================
-            HOW SARTHI WORKS SECTION
-            ==================================================================== */}
+        {/* 4. How Sarthi Works */}
         <HowSarthiWorksSection />
+
+        {/* 5. Central / State-Specific Schemes & Interactive Map */}
+        <StateSchemesSection />
       </main>
 
+      {/* Global Footer */}
+      <FooterSection />
 
-      {/* ====================================================================
-          BOTTOM TABS (Mobile View)
-          ==================================================================== */}
+      {/* Mobile Bottom Navigation */}
       <MobileBottomTabs
         activeTab={activeTab}
         onTabChange={(tabId) => {
