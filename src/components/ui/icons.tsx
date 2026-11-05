@@ -291,7 +291,7 @@ export function EcoIcon({ width = 14, height = 14, size, className, ...props }: 
   const h = size ?? height
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" width={w} height={h} className={className} fill="currentColor" {...props}>
-      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+      <path d="M20.5 3.5C12.8 3.7 6.7 6.2 4.1 11.1c-1.6 3.1-.7 6.6 2.1 8.3 2.8 1.7 6.6.7 8.4-2.1 1.3-2 1.6-4.5 1.3-6.9l-8.7 8.2-1.4-1.4 8.6-8.1c-2.4-.2-4.8.2-6.8 1.5C5.9 8.8 7.9 5.2 20.5 3.5z" />
     </svg>
   )
 }

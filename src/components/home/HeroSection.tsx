@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { SearchIcon } from '../ui/icons'
 import LiveUpdatesTicker from './LiveUpdatesTicker'
+import { VERIFIED_SCHEME_UPDATES } from '../../data/schemeUpdatesData'
 
 export interface CampaignSlide {
   id: number
@@ -15,6 +16,7 @@ export interface CampaignSlide {
   bannerImg: string
   thumbnailImg: string
   badgeText: string
+  schemeUrl: string
   isActive: boolean
 }
 
@@ -37,6 +39,7 @@ export const CAMPAIGNS: CampaignSlide[] = [
     bannerImg: '/assets/header/HomepageBanner.png',
     thumbnailImg: '/assets/header/Healthcare Schemes.png',
     badgeText: 'Health Assurance',
+    schemeUrl: 'https://beneficiary.nha.gov.in/',
     isActive: true,
   },
   {
@@ -57,6 +60,7 @@ export const CAMPAIGNS: CampaignSlide[] = [
     bannerImg: '/assets/header/HomepageBanner2.png',
     thumbnailImg: '/assets/header/Agriculture Schemes.png',
     badgeText: 'Farmer Support',
+    schemeUrl: 'https://pmkisan.gov.in/',
     isActive: true,
   },
   {
@@ -77,16 +81,32 @@ export const CAMPAIGNS: CampaignSlide[] = [
     bannerImg: '/assets/header/HomepageBanner3.png',
     thumbnailImg: '/assets/header/HomepageBanner3.png',
     badgeText: 'Solar Subsidy',
+    schemeUrl: 'https://pmsuryaghar.gov.in/',
     isActive: true,
   },
 ]
+
+const hasActiveSchemeUpdates = VERIFIED_SCHEME_UPDATES.some((update) => update.status === 'active')
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const touchStartXRef = useRef<number | null>(null)
 
-  // Auto-play interval with pause capability
+  const selectSlide = (index: number) => {
+    setCurrentSlide(index)
+    setIsPaused(true)
+  }
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const query = new FormData(event.currentTarget).get('query')
+    const trimmedQuery = typeof query === 'string' ? query.trim() : ''
+    if (trimmedQuery) {
+      window.location.assign(`/explore?search=${encodeURIComponent(trimmedQuery)}`)
+    }
+  }
+
   useEffect(() => {
     if (isPaused) return
     const timer = setInterval(() => {
@@ -97,10 +117,12 @@ export default function HeroSection() {
 
   const handlePrev = () => {
     setCurrentSlide((prev) => (prev - 1 + CAMPAIGNS.length) % CAMPAIGNS.length)
+    setIsPaused(true)
   }
 
   const handleNext = () => {
     setCurrentSlide((prev) => (prev + 1) % CAMPAIGNS.length)
+    setIsPaused(true)
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -120,9 +142,11 @@ export default function HeroSection() {
   return (
     <section className="hero-campaign-section" aria-label="Government Schemes Featured Campaigns">
       {/* 1. Live Government Scheme Updates Bar — immediately below navigation */}
-      <div className="hero-ticker-container">
-        <LiveUpdatesTicker />
-      </div>
+      {hasActiveSchemeUpdates && (
+        <div className="hero-ticker-container">
+          <LiveUpdatesTicker />
+        </div>
+      )}
 
       {/* 2. Main Two-Column Section: Left Promotional Banner Carousel + Right Search & Featured Initiatives */}
       <div className="hero-campaign-container">
@@ -135,6 +159,14 @@ export default function HeroSection() {
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
+            onFocus={(event) => {
+              if (event.target !== event.currentTarget) setIsPaused(true)
+            }}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                setIsPaused(false)
+              }
+            }}
             role="region"
             aria-label="Promotional campaign banner slideshow"
           >
@@ -178,7 +210,7 @@ export default function HeroSection() {
                     type="button"
                     role="tab"
                     className={`campaign-progress-dot ${idx === currentSlide ? 'campaign-progress-dot--active' : ''}`}
-                    onClick={() => setCurrentSlide(idx)}
+                    onClick={() => selectSlide(idx)}
                     aria-label={`Go to slide ${idx + 1}: ${c.schemeName}`}
                     aria-selected={idx === currentSlide}
                   />
@@ -208,6 +240,16 @@ export default function HeroSection() {
                   </svg>
                 </button>
               </div>
+              {isPaused && (
+                <button
+                  type="button"
+                  className="campaign-play-btn"
+                  onClick={() => setIsPaused(false)}
+                  aria-label="Restart automatic banner rotation"
+                >
+                  Play
+                </button>
+              )}
             </div>
           </div>
 
@@ -217,17 +259,14 @@ export default function HeroSection() {
             <div className="right-col-search-box">
               <form
                 className="right-col-search-form"
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  const q = (e.currentTarget.querySelector('input') as HTMLInputElement).value
-                  if (q.trim()) alert(`Searching schemes: ${q}`)
-                }}
+                onSubmit={handleSearchSubmit}
               >
                 <span className="right-col-search-icon" aria-hidden="true">
                   <SearchIcon width={17} height={17} stroke="#64748b" />
                 </span>
                 <input
                   type="search"
+                  name="query"
                   className="right-col-search-input"
                   placeholder="Search schemes..."
                   aria-label="Search government schemes"
@@ -259,11 +298,12 @@ export default function HeroSection() {
                     className={`campaign-promo-card ${
                       isSelected ? 'campaign-promo-card--selected' : ''
                     }`}
-                    onClick={() => setCurrentSlide(idx)}
+                    onClick={() => selectSlide(idx)}
                     onKeyDown={(e) => {
+                      if (e.target !== e.currentTarget) return
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault()
-                        setCurrentSlide(idx)
+                        selectSlide(idx)
                       }
                     }}
                     aria-current={isSelected ? 'true' : 'false'}
@@ -292,16 +332,18 @@ export default function HeroSection() {
                       <p className="promo-card-summary">{c.shortDesc}</p>
 
                       <div className="promo-card-footer">
-                        <span
+                        <a
+                          href={c.schemeUrl}
+                          target="_blank"
+                          rel="noreferrer"
                           className="promo-card-explore-link"
                           onClick={(e) => {
                             e.stopPropagation()
-                            alert(`Exploring ${c.schemeName}`)
                           }}
                         >
                           <span>Explore scheme</span>
                           <span className="promo-card-explore-arrow" aria-hidden="true">→</span>
-                        </span>
+                        </a>
                       </div>
                     </div>
                   </div>
