@@ -1,5 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
-import { SearchIcon, MapPinIcon, AccessibilityIcon, BellIcon, ChevronDownIcon } from '../ui/icons'
+import {
+  SearchIcon,
+  MapPinIcon,
+  AccessibilityIcon,
+  BellIcon,
+  ChevronDownIcon,
+  PersonIcon,
+  BookmarkIcon,
+  FactCheckIcon,
+  SettingsIcon,
+  HelpOutlineIcon,
+  DeleteOutlineIcon,
+  LogoutIcon,
+} from '../ui/icons'
 
 // 4-column language grid (matches the reference design)
 const LANG_COLUMNS = [
@@ -248,9 +261,7 @@ export default function SiteHeader({ activeNav, onNavChange }: SiteHeaderProps) 
                 aria-expanded={isLangOpen}
               >
                 <span>{currentLang.toUpperCase()}</span>
-                <svg aria-hidden="true" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                <ChevronDownIcon width="11" height="11" />
               </button>
 
               {isLangOpen && (
@@ -369,7 +380,9 @@ export default function SiteHeader({ activeNav, onNavChange }: SiteHeaderProps) 
                     aria-expanded={isMemberOpen}
                     onClick={() => setIsMemberOpen(!isMemberOpen)}
                   >
-                    <span className="member-avatar">A</span>
+                    <span className="member-avatar">
+                      <PersonIcon width="16" height="16" />
+                    </span>
                     <span className="member-name">Asha</span>
                     <ChevronDownIcon />
                   </button>
@@ -419,23 +432,39 @@ export default function SiteHeader({ activeNav, onNavChange }: SiteHeaderProps) 
 
                   {isAccountOpen && (
                     <ul className="header-dropdown-menu account-dropdown" role="menu" aria-label="Account menu">
-                      {accountMenuItems.map((item) => (
-                        <li key={item}>
-                          <button
-                            type="button"
-                            className={`dropdown-row ${item === 'Clear all data on this device' ? 'dropdown-row--danger' : ''} ${item === 'Sign out' ? 'dropdown-row--signout' : ''}`}
-                            role="menuitem"
-                            onClick={() => {
-                              setIsAccountOpen(false)
-                              if (item === 'Sign out') {
-                                setIsSignedIn(false)
-                              }
-                            }}
-                          >
-                            {item}
-                          </button>
-                        </li>
-                      ))}
+                      {accountMenuItems.map((item) => {
+                        const renderItemIcon = () => {
+                          switch (item) {
+                            case 'Profile': return <PersonIcon width="16" height="16" />
+                            case 'Saved': return <BookmarkIcon width="16" height="16" />
+                            case 'Checklist': return <FactCheckIcon width="16" height="16" />
+                            case 'Notifications': return <BellIcon width="16" height="16" />
+                            case 'Settings': return <SettingsIcon width="16" height="16" />
+                            case 'Help': return <HelpOutlineIcon width="16" height="16" />
+                            case 'Clear all data on this device': return <DeleteOutlineIcon width="16" height="16" />
+                            case 'Sign out': return <LogoutIcon width="16" height="16" />
+                            default: return null
+                          }
+                        }
+                        return (
+                          <li key={item}>
+                            <button
+                              type="button"
+                              className={`dropdown-row ${item === 'Clear all data on this device' ? 'dropdown-row--danger' : ''} ${item === 'Sign out' ? 'dropdown-row--signout' : ''}`}
+                              role="menuitem"
+                              onClick={() => {
+                                setIsAccountOpen(false)
+                                if (item === 'Sign out') {
+                                  setIsSignedIn(false)
+                                }
+                              }}
+                            >
+                              {renderItemIcon()}
+                              <span>{item}</span>
+                            </button>
+                          </li>
+                        )
+                      })}
                     </ul>
                   )}
                 </div>
