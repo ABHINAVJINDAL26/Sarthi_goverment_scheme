@@ -1,6 +1,6 @@
 import React from 'react'
 import { BroadcastIcon, Icon } from '../ui/icons'
-import { VERIFIED_SCHEME_UPDATES, SchemeAnnouncement } from '../../data/schemeUpdatesData'
+import { VERIFIED_SCHEME_UPDATES, type SchemeAnnouncement } from '../../data/schemeUpdatesData'
 
 interface LiveUpdatesTickerProps {
   announcements?: SchemeAnnouncement[]
@@ -102,4 +102,3 @@ export default function LiveUpdatesTicker({
     </div>
   )
 }
-

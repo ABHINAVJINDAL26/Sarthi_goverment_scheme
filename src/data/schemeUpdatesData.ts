@@ -1,4 +1,4 @@
-import { IconName } from '../components/ui/icons'
+import type { IconName } from '../components/ui/icons'
 
 export interface SchemeAnnouncement {
   id: string
@@ -42,7 +42,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'Ministry of Housing and Urban Affairs (MoHUA)',
     officialSourceUrl: 'https://pmaymis.gov.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'home',
   },
   {
@@ -57,7 +57,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'Ministry of Agriculture & Farmers Welfare',
     officialSourceUrl: 'https://pmkisan.gov.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'agriculture',
   },
   {
@@ -72,7 +72,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'Department of Higher Education, Ministry of Education',
     officialSourceUrl: 'https://pmvidyalaxmi.co.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'school',
   },
   {
@@ -87,7 +87,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'National Health Authority (NHA)',
     officialSourceUrl: 'https://beneficiary.nha.gov.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'health',
   },
   {
@@ -102,7 +102,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'Ministry of New and Renewable Energy (MNRE)',
     officialSourceUrl: 'https://pmsuryaghar.gov.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'storefront',
   },
   {
@@ -117,7 +117,7 @@ export const VERIFIED_SCHEME_UPDATES: SchemeAnnouncement[] = [
     sourceName: 'Ministry of Rural Development',
     officialSourceUrl: 'https://nrlm.gov.in/',
     lastVerifiedAt: '2025-01-15',
-    status: 'archived',
+    status: 'active',
     iconName: 'family',
   },
 ]
