@@ -95,7 +95,6 @@ export default function HeroSection() {
 
   const selectSlide = (index: number) => {
     setCurrentSlide(index)
-    setIsPaused(true)
   }
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -111,18 +110,16 @@ export default function HeroSection() {
     if (isPaused) return
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % CAMPAIGNS.length)
-    }, 5500)
+    }, 5000)
     return () => clearInterval(timer)
   }, [isPaused])
 
   const handlePrev = () => {
     setCurrentSlide((prev) => (prev - 1 + CAMPAIGNS.length) % CAMPAIGNS.length)
-    setIsPaused(true)
   }
 
   const handleNext = () => {
     setCurrentSlide((prev) => (prev + 1) % CAMPAIGNS.length)
-    setIsPaused(true)
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -193,64 +190,27 @@ export default function HeroSection() {
               })}
             </div>
 
-            {/* Carousel Navigation Bar (Docked at the Bottom of Banner Card) */}
-            <div className="campaign-controls-bar" aria-label="Banner carousel navigation">
-              {/* Slide Counter (e.g. 01 / 03) */}
-              <div className="campaign-counter">
-                <span className="campaign-counter-current">0{currentSlide + 1}</span>
-                <span className="campaign-counter-sep">/</span>
-                <span className="campaign-counter-total">0{CAMPAIGNS.length}</span>
-              </div>
-
-              {/* Progress Segment Dots */}
-              <div className="campaign-progress-dots" role="tablist" aria-label="Banner slides">
-                {CAMPAIGNS.map((c, idx) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    role="tab"
-                    className={`campaign-progress-dot ${idx === currentSlide ? 'campaign-progress-dot--active' : ''}`}
-                    onClick={() => selectSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}: ${c.schemeName}`}
-                    aria-selected={idx === currentSlide}
-                  />
-                ))}
-              </div>
-
-              {/* Prev / Next Arrows */}
-              <div className="campaign-nav-arrows">
-                <button
-                  type="button"
-                  className="campaign-arrow-btn"
-                  onClick={handlePrev}
-                  aria-label="Previous banner"
-                >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  className="campaign-arrow-btn"
-                  onClick={handleNext}
-                  aria-label="Next banner"
-                >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
-              </div>
-              {isPaused && (
-                <button
-                  type="button"
-                  className="campaign-play-btn"
-                  onClick={() => setIsPaused(false)}
-                  aria-label="Restart automatic banner rotation"
-                >
-                  Play
-                </button>
-              )}
-            </div>
+            {/* Left and Right Navigation Arrows */}
+            <button
+              type="button"
+              className="campaign-arrow-btn campaign-arrow-btn--prev"
+              onClick={handlePrev}
+              aria-label="Previous banner"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="campaign-arrow-btn campaign-arrow-btn--next"
+              onClick={handleNext}
+              aria-label="Next banner"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
           </div>
 
           {/* Right Column: Search Bar + Featured Initiatives */}
