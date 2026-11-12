@@ -1,0 +1,153 @@
+{
+  "as_of": "2026-11-13",
+  "rows": 750,
+  "category_before": {
+    "Education & Learning": 286,
+    "Agriculture & Farming": 180,
+    "Women & Child Development": 102,
+    "Business & Entrepreneurship": 52,
+    "Health & Wellness": 41,
+    "Social Welfare & Empowerment": 27,
+    "Disability & Rehabilitation": 26,
+    "Senior Citizens": 15,
+    "Employment & Skills": 13,
+    "Housing & Shelter": 8
+  },
+  "category_after": {
+    "Education & Learning": 227,
+    "Agriculture & Farming": 134,
+    "Social Welfare & Empowerment": 83,
+    "Women & Child Development": 73,
+    "Business & Entrepreneurship": 67,
+    "Disability & Rehabilitation": 64,
+    "Health & Wellness": 38,
+    "Employment & Skills": 36,
+    "Housing & Shelter": 15,
+    "Senior Citizens": 13
+  },
+  "category_source": {
+    "original": 145,
+    "rule": 516,
+    "model": 89
+  },
+  "category_changed": 243,
+  "category_evaluation": {
+    "dev_sample": {
+      "gold_size": 82,
+      "original_labels": {
+        "accuracy": 0.573,
+        "macro_f1": 0.437
+      },
+      "rules_then_original": {
+        "accuracy": 0.976,
+        "macro_f1": 0.98
+      },
+      "model_only": {
+        "accuracy": 0.963,
+        "macro_f1": 0.969
+      },
+      "final_pipeline": {
+        "accuracy": 0.976,
+        "macro_f1": 0.98
+      }
+    },
+    "holdout_sample": {
+      "gold_size": 44,
+      "original_labels": {
+        "accuracy": 0.477,
+        "macro_f1": 0.369
+      },
+      "rules_then_original": {
+        "accuracy": 0.818,
+        "macro_f1": 0.808
+      },
+      "model_only": {
+        "accuracy": 0.841,
+        "macro_f1": 0.756
+      },
+      "final_pipeline": {
+        "accuracy": 0.841,
+        "macro_f1": 0.825
+      }
+    },
+    "note": "Labels were drafted from scheme names and should be verified by the team."
+  },
+  "documents": {
+    "raw_distinct_strings": 1022,
+    "standard_types": 21,
+    "other_types_after_merge": 199,
+    "mapped": 3233,
+    "dropped_fragment": 579,
+    "kept_other": 257
+  },
+  "scope": {
+    "central": 490,
+    "state": 260
+  },
+  "states_inferred": {
+    "Gujarat": 37,
+    "Kerala": 20,
+    "Puducherry": 19,
+    "Goa": 18,
+    "Delhi": 17,
+    "Assam": 17,
+    "Haryana": 15,
+    "Rajasthan": 14,
+    "Manipur": 11,
+    "Maharashtra": 9,
+    "Chhattisgarh": 8,
+    "Punjab": 7,
+    "Odisha": 7,
+    "Himachal Pradesh": 6,
+    "Andaman and Nicobar Islands": 6,
+    "Chandigarh": 6,
+    "Meghalaya": 6,
+    "Jharkhand": 5,
+    "Sikkim": 4,
+    "Bihar": 3,
+    "Madhya Pradesh": 3,
+    "Uttar Pradesh": 3,
+    "Jammu and Kashmir": 3,
+    "Uttarakhand": 3,
+    "Karnataka": 2,
+    "West Bengal": 2,
+    "Tamil Nadu": 2,
+    "Telangana": 2,
+    "Nagaland": 1,
+    "Andhra Pradesh": 1,
+    "Arunachal Pradesh": 1,
+    "Ladakh": 1,
+    "Tripura": 1
+  },
+  "missing_rule_fields": {
+    "age_min": 644,
+    "age_max": 653,
+    "income_max": 690,
+    "gender": 655
+  },
+  "quality_flags": {
+    "stale_verification": 548,
+    "documents_had_fragments": 353,
+    "source_url_generic": 259,
+    "application_link_generic": 259,
+    "state_scheme_tagged_central": 258,
+    "category_fixed_by_rule": 223,
+    "generic_state_list": 152,
+    "category_needs_review": 90,
+    "occupation_fixed_construction_worker": 73,
+    "name_text_cleaned": 41,
+    "category_fixed_by_model": 20,
+    "occupation_student_suspect": 9,
+    "income_possibly_monthly": 8,
+    "application_link_host_repaired": 8,
+    "source_url_host_repaired": 8,
+    "age_range_invalid": 4,
+    "application_link_broken_host": 3,
+    "source_url_broken_host": 3,
+    "deadline_passed": 2,
+    "application_link_extra_text_around_url": 2,
+    "application_link_scheme_added": 1,
+    "application_link_no_url_found": 1
+  },
+  "rows_without_flags": 2
+}

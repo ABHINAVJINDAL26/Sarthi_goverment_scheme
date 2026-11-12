@@ -1,0 +1,1102 @@
+[
+  {
+    "name": "Aadhaar Card",
+    "standard": true,
+    "scheme_count": 750
+  },
+  {
+    "name": "Bank Passbook / Account Details",
+    "standard": true,
+    "scheme_count": 670
+  },
+  {
+    "name": "Educational Certificate / Marksheet",
+    "standard": true,
+    "scheme_count": 313
+  },
+  {
+    "name": "Ration Card / BPL Card",
+    "standard": true,
+    "scheme_count": 282
+  },
+  {
+    "name": "Caste Certificate",
+    "standard": true,
+    "scheme_count": 270
+  },
+  {
+    "name": "Land Records",
+    "standard": true,
+    "scheme_count": 199
+  },
+  {
+    "name": "Domicile / Residence Certificate",
+    "standard": true,
+    "scheme_count": 162
+  },
+  {
+    "name": "Income Certificate",
+    "standard": true,
+    "scheme_count": 151
+  },
+  {
+    "name": "Disability Certificate (UDID)",
+    "standard": true,
+    "scheme_count": 121
+  },
+  {
+    "name": "Passport-size Photograph",
+    "standard": true,
+    "scheme_count": 115
+  },
+  {
+    "name": "Birth Certificate / Age Proof",
+    "standard": true,
+    "scheme_count": 42
+  },
+  {
+    "name": "Application Form",
+    "standard": true,
+    "scheme_count": 38
+  },
+  {
+    "name": "Death Certificate",
+    "standard": true,
+    "scheme_count": 15
+  },
+  {
+    "name": "Project Report / Business Plan",
+    "standard": true,
+    "scheme_count": 14
+  },
+  {
+    "name": "Mobile Number",
+    "standard": true,
+    "scheme_count": 12
+  },
+  {
+    "name": "Medical Certificate",
+    "standard": true,
+    "scheme_count": 11
+  },
+  {
+    "name": "Self Declaration / Affidavit",
+    "standard": true,
+    "scheme_count": 11
+  },
+  {
+    "name": "Voter ID",
+    "standard": true,
+    "scheme_count": 7
+  },
+  {
+    "name": "PAN Card",
+    "standard": true,
+    "scheme_count": 5
+  },
+  {
+    "name": "Marriage Certificate",
+    "standard": true,
+    "scheme_count": 4
+  },
+  {
+    "name": "Labour / Worker Registration Card",
+    "standard": true,
+    "scheme_count": 3
+  },
+  {
+    "name": "Identity Proof",
+    "standard": false,
+    "scheme_count": 13
+  },
+  {
+    "name": "Any other document as required",
+    "standard": false,
+    "scheme_count": 10
+  },
+  {
+    "name": "Email id",
+    "standard": false,
+    "scheme_count": 5
+  },
+  {
+    "name": "Other documents, if any",
+    "standard": false,
+    "scheme_count": 5
+  },
+  {
+    "name": "Age certificate",
+    "standard": false,
+    "scheme_count": 4
+  },
+  {
+    "name": "Any other document required by the District Social Welfare Office",
+    "standard": false,
+    "scheme_count": 3
+  },
+  {
+    "name": "Last Subscription Bill",
+    "standard": false,
+    "scheme_count": 3
+  },
+  {
+    "name": "Identity proof i.e",
+    "standard": false,
+    "scheme_count": 3
+  },
+  {
+    "name": "No Documents required for this",
+    "standard": false,
+    "scheme_count": 3
+  },
+  {
+    "name": "Proof of",
+    "standard": false,
+    "scheme_count": 3
+  },
+  {
+    "name": "Reading Certificate",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Identification Proof",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Employment Certificate",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Certificate to confirm age",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Financial Assistance ID Card",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Documents proof of being a farmer",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Board ID Card",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "A copy of the identity card issued by the contractor to the worker/labour",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Copy of Jamabandi (not more than six months old)",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Discharge Certificate of ESM",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Identity Card of the ESM/ Widow of ESM",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Udyam / MSME Registration",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "List of the required documentsBirth",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "One copy of the application for the scholarship in the",
+    "standard": false,
+    "scheme_count": 2
+  },
+  {
+    "name": "Proof of Business Address",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Relevant trade license or permit at the time of loan sanction",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Unemployment Card from respective BAC",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Other Documents",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Being in Service for a Minimum of Five Years",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of the Medical Condition",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Document proving dependency for each dependent member to be added:",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Engagement/ Appointment Order",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "List of the required documents Mandatory KYC",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Mandatory KYC Document Required for CMHIS (GEN) category:",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of continuity of being engaged (Letter from the controlling officer)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Bill / Voucher for purchasing the equipment/instrument",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate from the teacher on the requirement of instruments/equipment",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Requisite documents for verification of INCOME (any one of the following):",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Rashan Card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other document required by the Child Welfare Committee",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Gap certificate - Not mandatory but in case of gap it is mandatory",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Employment",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Outstanding Work in the respective field",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other document required by the District Office of LIDCOM",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of being a Roadside Cobbler (issued by the Gram Panchayat),",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Skill development training certificates (if applicable)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Passing Class 10th",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate from Medical board",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate from the applicant that he/she is not receiving any other pension",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of the Parivar Register",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "B. P.L. Card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "School Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "A copy of the registry (if the property is self-purchased)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Valuation Certificate of property to be mortgaged",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Mark the statement of the children",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate issued by the court for divorcee woman pension",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate showing the date fixed for marriage (Marriage Invitation card)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documentary proof in case of widow/PwD certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Immunization card of the beneficiary",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other document (If applicable)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Experience certificate in R&D",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificates (where applicable)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Health Reports",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of School Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Divorce Certificate Copy",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Statement of Purpose (SOP) (not exceeding 200 words)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of FIR",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Welfare / Abandonment Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate from the Host Institution",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ID Proof of National Defence Academy (NDA)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "The copy of the latest house tax receipt. (original/self-attested). 5",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Card under the scheme",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Construction Worker Card. (If belong to that Category)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate of Passing of Maximum Qualification",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate if Any",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of ID Proof of Recommender (Person Who is Recommending)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Recommendation Letter From Individual/ Institution",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Consent letter",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Driving License",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Updated Fishing License Certificate/Fishing Net License Receipts",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of Election Card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of Fishing Netbook (Updated)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Fishing Net License Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Epic Document",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Enrollment certificate as a member of the Fishermen Co-operative Society",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Sea Fishing Experience (Minimum 5 Years) (for male applicants)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copies of Mortgage Documents in Respect of the Beneficiary for Official Record",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Purchase Invoice Copies and Rc Book for Vehicle Verification",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Differently Abled Identity Card issued by a competent authority",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Attested Copies of Qualifying Certificates in Respect of Exam Passed",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate of Unclean Occupation Obtained From the Employer by the Parent/s",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents required for Grant of Welfare Schemes:",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Adequate documentary evidence in support of the act of bravery",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "First Information Report (FIR) or Police Diary filed with the Police Station",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Recommendation letter, if any",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of deposit of contribution",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "B.P.L. card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Original bills for the expenses incurred towards the construction of the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Financial Assistance ID Card of Deceased",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of sales receipt of tools/toolkit",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents required for Pension Scheme:",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other relevant documents, as required",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of interest paid on loan during the year",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Fitness certificate (Issued by Agartala Government Medical College Tripura)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Sports Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Admit Card/ Hall Ticket/ Roll Slip",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "RC member ID",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "UPSC Prelims/Mains Clearance Proof",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificates issued by the employer",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of Proof of Artistic Ability",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Degree Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate of incapacity from the Certifying Civil Surgeon",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of valid three-wheeler license",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Burial Permission Letter",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Soil and water test report",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Discharge Certificate of Ex-Serviceman",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ID Card of the Widow",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ID Card of the Widow.ID Card of the late Ex-",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ID Card of the late Ex-Serviceman",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Bill for the Purchase (Original)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of pregnancy/Medical report",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other documents, if required",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Receiving the Kalaimamani Award",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity Card (College/School)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Applicant Driving License",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Driver Driving License",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Cash Receipt for Spectacle Purchase",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate of the Eye Specialist",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Details of Fees Paid (Original receipt)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "In the case of 'Management Quota', a Certificate from the Institute",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Successful Completion of the Course",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Study Certificate of the Ward (if not already registered with the DSW)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Receipt of Payment of First & Last Subscription with the Board",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Identity of the Parents •",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "License Issued by Competent Authority",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Information Report (FIR)/Medico-Legal Cases (MLC) Report",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents required for Accidental Death",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Card.Employee Government",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of request for",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Licences.Any other document as specified by",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copies of the following documents duly attested by concerned",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of the Identity proof2. Copy of",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Competent Authority.(vii) Category Certificate (SC/ST/OBC-NCL)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Report.Discharge Slip",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": ") Forwarding letter",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Any other document as specified by the Department",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Self-attested copy of the identity card of the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents required for",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Feedback FormCopy of ProceedingsCompletion Report",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Submission of documents by",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Required details and documents:Institute Details.Details of the Writer of the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate.Financial Assistance Identity Card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "National Identity Card of the Differently Abled. Law Degree Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documentary evidence for",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "For Individual:Identity proofThree Passport size",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "The following documents are to be attached with the application, in",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents to accompany the applicationEach application shall be",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Continuation certificate (to be submitted at the end of every three months)2",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "HRA certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Yearly Progress Report (to be submitted after completion of",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity proof of applicant2. Proof of Kerala",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity proof of applicant2. Endorsement certificate3",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "CertificateSowing Certificate",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documentary proofs of being SC will have to be",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "No Documents required for this SchemeFrequently",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "General DocumentsEntrepreneurs Memorandum",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate (issued by the Revenue Department)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "List of required documentsAn attested copy of the ST",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Food courts)Any other document, as requested by the Department of Tourism",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Required Documents:-",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ABOCWWB ID Card of the deceased workerApplicant's",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "MBOCWWB ID Card of workerDeath",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Minor)Any other documents as required",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Scanned copy",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Copy of Pass BookOther documents, if any",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Valid Email ID,",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "During Application:A Copy of Delivery / Discharge Certificate by the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Authority Letter for Nodal Officer",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Step 1: Obtaining Technical Feasibility Report",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "ABOCWWB ID CardApplicant's Passport size",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Abled.Family Card",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "National Identity Card of the Differently",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of Unit Establishment in Puducherry.Any other",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate Copy",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of being a Coir Artisan",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "The application should be accompanied by the following documents:1",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Proof of the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Authority/Building OwnerOther documents, if any",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity proof of deceased workerIdentity proof of",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "BookOther documents, if any",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Documents required to",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Utilization certificate for the previous grant released. 4. A",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Scanned copy of your passport-",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Certificate must be of Puducherry Union Territory)",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Document submitted needs to be duly signed by the",
+    "standard": false,
+    "scheme_count": 1
+  },
+  {
+    "name": "Identity proof of the applicantMBOCWWB ID Card of",
+    "standard": false,
+    "scheme_count": 1
+  }
+]
