@@ -854,6 +854,55 @@
   pointer-events: none;
 }
 
+/* Mobile brand row: one compact line (logo + language | search + login).
+   Placed after the base header rules so these overrides win. */
+@media (max-width: 600px) {
+  .brand-row {
+    padding: 10px 0;
+  }
+
+  .brand-row__inner {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .brand-cluster,
+  .header-actions {
+    width: auto;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .bharat-yojana-logo {
+    height: 40px;
+    max-width: 112px;
+  }
+
+  .azadi-logo,
+  .brand-divider--short {
+    display: none;
+  }
+
+  .brand-divider {
+    height: 32px;
+    margin: 0 8px;
+  }
+
+  .lang-dropdown__trigger {
+    padding: 4px 9px 4px 11px;
+    font-size: 11px;
+  }
+
+  .register-animation-btn {
+    display: none;
+  }
+}
+
 /* ==========================================================================
    PREMIUM CAMPAIGN HERO & CAROUSEL SECTION
    ========================================================================== */
@@ -1707,8 +1756,15 @@
 
 @media (max-width: 920px) {
   .hero-campaign-layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr): stop the horizontally scrolling card list from
+       widening the column past the screen and hiding the carousel's right arrow */
+    grid-template-columns: minmax(0, 1fr);
     gap: 18px;
+  }
+
+  .campaign-carousel-card,
+  .campaign-side-column {
+    min-width: 0;
   }
 
   .campaign-carousel-card {
