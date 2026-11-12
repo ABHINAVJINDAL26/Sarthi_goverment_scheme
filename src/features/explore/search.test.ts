@@ -24,8 +24,8 @@ function topShare(query: string, pred: (name: string, cats: string[]) => boolean
   return hits.filter((h) => pred(h.scheme.name.toLowerCase(), h.scheme.categories)).length / hits.length
 }
 
-check('tokenizer keeps Devanagari matras together', () => {
-  assert.deepEqual(tokenize('बेटी की पढ़ाई'), ['बेटी', 'की', 'पढ़ाई'])
+check('tokenizer keeps Devanagari matras together and drops the nukta', () => {
+  assert.deepEqual(tokenize('बेटी की पढ़ाई'), ['बेटी', 'की', 'पढाई'])
 })
 
 check('edit distance handles typos and transpositions', () => {
@@ -69,6 +69,17 @@ check('construction workers: "mazdoor" finds labour board schemes', () => {
   const isWorkerScheme = (h: (typeof hits)[number]) =>
     h.scheme.occupations.includes('construction_worker') || /labour|shramik|worker|construction/i.test(h.scheme.name)
   assert.ok(hits.filter(isWorkerScheme).length >= 9)
+})
+
+check('Hindi: "बेटी की पढ़ाई" works like "beti ki padhai"', () => {
+  assert.ok(topShare('बेटी की पढ़ाई', (n, c) => /girl|daughter|women|kanya|beti/.test(n) || c.includes('Education & Learning')) >= 0.8)
+})
+
+check('nukta-insensitive: "मज़दूर" and "मजदूर" give the same results', () => {
+  const a = search(index, 'मज़दूर', 10).map((h) => h.scheme.id)
+  const b = search(index, 'मजदूर', 10).map((h) => h.scheme.id)
+  assert.ok(a.length > 0)
+  assert.deepEqual(a, b)
 })
 
 check('results explain what matched', () => {

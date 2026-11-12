@@ -22,7 +22,8 @@ import type { Scheme } from './types'
 const TOKEN_RE = /[\p{L}\p{M}\p{N}]+/gu
 
 export function normalize(text: string): string {
-  return text.normalize('NFKC').toLowerCase()
+  // Drop the Devanagari nukta so "मज़दूर" and "मजदूर" match (people type both).
+  return text.normalize('NFKC').toLowerCase().replace(/़/g, '')
 }
 
 export function tokenize(text: string): string[] {

@@ -1,60 +1,50 @@
-import { useState } from 'react'
-import {
-  HeroSection,
-  PortalStatsSection,
-  CategorySchemesSection,
-  HowSarthiWorksSection,
-  StateSchemesSection,
-  FooterSection,
-} from './components/home'
-import { SiteHeader, MobileBottomTabs } from './components/layout'
+import { useEffect } from 'react'
+import './components/layout/layout.css'
+import AppHeader from './components/layout/AppHeader'
+import AppFooter from './components/layout/AppFooter'
+import BottomNav from './components/layout/BottomNav'
 import ExplorePage from './features/explore/ExplorePage'
-import { navigate, useLocation } from './lib/router'
+import HomePage from './features/home/HomePage'
+import HelpPage from './features/help/HelpPage'
+import { I18nProvider, useI18n } from './i18n'
+import { useLocation } from './lib/router'
 
-// Nav items that have their own page. The others are not built yet and keep the home page.
-const ROUTES: Record<string, string> = { Home: '/', Explore: '/explore' }
+function routeFor(pathname: string): 'home' | 'explore' | 'help' {
+  const path = pathname.replace(/\/+$/, '') || '/'
+  if (path === '/explore') return 'explore'
+  if (path === '/help') return 'help'
+  return 'home'
+}
 
-export default function App() {
+function Shell() {
   const location = useLocation()
-  const isExplore = location.pathname.replace(/\/+$/, '') === '/explore'
-  const [pendingNav, setPendingNav] = useState<string | null>(null)
-  const activeNav = isExplore ? 'Explore' : pendingNav ?? 'Home'
+  const { t } = useI18n()
+  const route = routeFor(location.pathname)
 
-  const handleNav = (item: string) => {
-    const path = ROUTES[item]
-    if (path) {
-      setPendingNav(null)
-      navigate(path)
-    } else {
-      setPendingNav(item)
-    }
-  }
+  useEffect(() => {
+    const titles = { home: t('app.tagline'), explore: t('nav.explore'), help: t('nav.help') }
+    document.title = `${titles[route]} | ${t('app.name')}`
+  }, [route, t])
 
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      <SiteHeader activeNav={activeNav} onNavChange={handleNav} />
-
+      <a href="#main-content" className="skip-link">{t('app.skip')}</a>
+      <AppHeader active={route} />
       <main id="main-content">
-        {isExplore ? (
-          <ExplorePage initialSearch={location.search} />
-        ) : (
-          <>
-            <HeroSection />
-            <PortalStatsSection />
-            <CategorySchemesSection />
-            <HowSarthiWorksSection />
-            <StateSchemesSection />
-          </>
-        )}
+        {route === 'explore' && <ExplorePage initialSearch={location.search} />}
+        {route === 'help' && <HelpPage />}
+        {route === 'home' && <HomePage />}
       </main>
-
-      <FooterSection />
-
-      <MobileBottomTabs activeTab={activeNav} onTabChange={handleNav} />
+      <AppFooter />
+      <BottomNav active={route} />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <I18nProvider>
+      <Shell />
+    </I18nProvider>
   )
 }
