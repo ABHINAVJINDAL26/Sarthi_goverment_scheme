@@ -72,6 +72,15 @@ class CleanTests(unittest.TestCase):
         self.assertIsNone(rec["age_max"])
         self.assertIn("age_range_invalid", rec["quality_flags"])
 
+    def test_implausible_small_ages_become_unknown(self):
+        rec = clean_row(raw_row(age_max="4"), AS_OF, 365)
+        self.assertIsNone(rec["age_max"])
+        self.assertIn("age_implausible", rec["quality_flags"])
+        rec = clean_row(raw_row(age_min="3"), AS_OF, 365)
+        self.assertIsNone(rec["age_min"])
+        rec = clean_row(raw_row(age_min="18", age_max="35"), AS_OF, 365)
+        self.assertEqual((rec["age_min"], rec["age_max"]), (18, 35))
+
     def test_all_and_any_mean_no_restriction(self):
         rec = clean_row(raw_row(), AS_OF, 365)
         self.assertEqual(rec["caste_categories"], [])

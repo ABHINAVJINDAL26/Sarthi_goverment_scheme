@@ -48,7 +48,7 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
         r"bal sakha",
     ]),
     ("Housing & Shelter", [
-        r"housing", r"\bhouse", r"awas", r"aaws", r"dwelling", r"bedroom", r"shelter",
+        r"housing", r"\bhouse", r"awas", r"aaws", r"dwelling", r"bedroom", r"shelter", r"ghar\b", r"pucca",
     ]),
     ("Agriculture & Farming", [
         r"agricultur", r"krishi", r"farmer", r"farm\b", r"kisan", r"crop", r"fasal",

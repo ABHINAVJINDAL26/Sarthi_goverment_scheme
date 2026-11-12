@@ -593,9 +593,9 @@
   {
     "id": "SCH_0015",
     "name": "Aponar Apon Ghar",
-    "category": "Business & Entrepreneurship",
+    "category": "Housing & Shelter",
     "categories": [
-      "Business & Entrepreneurship"
+      "Housing & Shelter"
     ],
     "scope": "state",
     "states": [
@@ -632,7 +632,7 @@
     "quality_flags": [
       "state_scheme_tagged_central",
       "documents_had_fragments",
-      "category_needs_review"
+      "category_fixed_by_rule"
     ]
   },
   {
@@ -5357,7 +5357,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 5,
+    "age_max": null,
     "gender": null,
     "income_max": 75000,
     "caste_categories": [
@@ -5390,6 +5390,7 @@
     "last_verified_date": "2026-10-17",
     "is_stale": false,
     "quality_flags": [
+      "age_implausible",
       "generic_state_list",
       "documents_had_fragments",
       "category_fixed_by_rule"
@@ -5572,7 +5573,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 3,
+    "age_max": null,
     "gender": "female",
     "income_max": 24000,
     "caste_categories": [],
@@ -5597,6 +5598,7 @@
     "last_verified_date": "2026-10-17",
     "is_stale": false,
     "quality_flags": [
+      "age_implausible",
       "generic_state_list",
       "income_possibly_monthly",
       "documents_had_fragments"
@@ -5612,7 +5614,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 3,
+    "age_max": null,
     "gender": "female",
     "income_max": 15000,
     "caste_categories": [],
@@ -5634,6 +5636,7 @@
     "last_verified_date": "2026-10-17",
     "is_stale": false,
     "quality_flags": [
+      "age_implausible",
       "generic_state_list",
       "income_possibly_monthly",
       "documents_had_fragments"
@@ -8660,7 +8663,7 @@
       "Tamil Nadu"
     ],
     "age_min": null,
-    "age_max": 10,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -8693,6 +8696,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "category_needs_review"
@@ -8920,7 +8924,7 @@
     ],
     "scope": "central",
     "states": [],
-    "age_min": 1,
+    "age_min": null,
     "age_max": null,
     "gender": null,
     "income_max": null,
@@ -8952,6 +8956,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments",
       "category_fixed_by_rule"
@@ -10398,7 +10403,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 4,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -10430,6 +10435,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "category_fixed_by_rule"
     ]
@@ -11748,7 +11754,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 3,
+    "age_max": null,
     "gender": "female",
     "income_max": null,
     "caste_categories": [
@@ -11775,6 +11781,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification"
     ]
   },
@@ -12220,7 +12227,7 @@
       "Puducherry"
     ],
     "age_min": null,
-    "age_max": 5,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -12252,6 +12259,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "category_fixed_by_rule"
@@ -13087,7 +13095,8 @@
       "source_url_generic",
       "application_link_generic",
       "stale_verification",
-      "documents_had_fragments"
+      "documents_had_fragments",
+      "category_needs_review"
     ]
   },
   {
@@ -14425,7 +14434,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 10,
+    "age_max": null,
     "gender": "female",
     "income_max": null,
     "caste_categories": [],
@@ -14452,6 +14461,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "category_fixed_by_rule"
     ]
@@ -15413,9 +15423,9 @@
   {
     "id": "SCH_0368",
     "name": "Biju Pucca Ghar Yojana",
-    "category": "Women & Child Development",
+    "category": "Housing & Shelter",
     "categories": [
-      "Women & Child Development"
+      "Housing & Shelter"
     ],
     "scope": "state",
     "states": [
@@ -15445,7 +15455,8 @@
     "is_stale": true,
     "quality_flags": [
       "stale_verification",
-      "state_scheme_tagged_central"
+      "state_scheme_tagged_central",
+      "category_fixed_by_rule"
     ]
   },
   {
@@ -15540,7 +15551,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -15567,6 +15578,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments"
     ]
@@ -15581,7 +15593,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -15605,6 +15617,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments",
       "category_fixed_by_rule"
@@ -15620,7 +15633,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -15643,6 +15656,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments",
       "category_needs_review"
@@ -15658,7 +15672,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -15683,6 +15697,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments"
     ]
@@ -15697,7 +15712,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -15720,15 +15735,16 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification"
     ]
   },
   {
     "id": "SCH_0376",
     "name": "Bhagini Prasuti Sahayata Yojana",
-    "category": "Social Welfare & Empowerment",
+    "category": "Women & Child Development",
     "categories": [
-      "Social Welfare & Empowerment"
+      "Women & Child Development"
     ],
     "scope": "central",
     "states": [],
@@ -15758,7 +15774,7 @@
       "application_link_generic",
       "stale_verification",
       "documents_had_fragments",
-      "category_fixed_by_model"
+      "category_needs_review"
     ]
   },
   {
@@ -16194,7 +16210,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 10,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -16223,6 +16239,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification"
     ]
   },
@@ -17060,7 +17077,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 10,
+    "age_max": null,
     "gender": null,
     "income_max": 300000,
     "caste_categories": [
@@ -17088,6 +17105,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification"
     ]
   },
@@ -17605,7 +17623,7 @@
     ],
     "scope": "central",
     "states": [],
-    "age_min": 3,
+    "age_min": null,
     "age_max": null,
     "gender": null,
     "income_max": null,
@@ -17633,6 +17651,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments"
     ]
@@ -17851,7 +17870,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 7,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -17881,6 +17900,7 @@
     "quality_flags": [
       "application_link_host_repaired",
       "source_url_host_repaired",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments",
       "category_fixed_by_rule"
@@ -18551,7 +18571,7 @@
       "Rajasthan"
     ],
     "age_min": null,
-    "age_max": 3,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -18580,6 +18600,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "category_needs_review"
@@ -20156,7 +20177,8 @@
       "source_url_generic",
       "application_link_generic",
       "stale_verification",
-      "documents_had_fragments"
+      "documents_had_fragments",
+      "category_needs_review"
     ]
   },
   {
@@ -20467,9 +20489,9 @@
   {
     "id": "SCH_0487",
     "name": "Chief Minister’s White Revolutions Scheme",
-    "category": "Business & Entrepreneurship",
+    "category": "Agriculture & Farming",
     "categories": [
-      "Business & Entrepreneurship"
+      "Agriculture & Farming"
     ],
     "scope": "central",
     "states": [],
@@ -20504,7 +20526,7 @@
       "source_url_generic",
       "application_link_generic",
       "stale_verification",
-      "category_fixed_by_model"
+      "category_needs_review"
     ]
   },
   {
@@ -22241,7 +22263,7 @@
       "Puducherry"
     ],
     "age_min": null,
-    "age_max": 5,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -22270,6 +22292,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "documents_had_fragments",
@@ -24658,7 +24681,7 @@
       "West Bengal"
     ],
     "age_min": 10,
-    "age_max": 10,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -24684,6 +24707,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "category_fixed_by_rule"
@@ -24917,7 +24941,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 13,
+    "age_max": null,
     "gender": "female",
     "income_max": null,
     "caste_categories": [],
@@ -24941,6 +24965,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification"
     ]
   },
@@ -25719,7 +25744,7 @@
     ],
     "scope": "central",
     "states": [],
-    "age_min": 3,
+    "age_min": null,
     "age_max": null,
     "gender": null,
     "income_max": null,
@@ -25749,6 +25774,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments",
       "category_needs_review"
@@ -25977,7 +26003,7 @@
       "Kerala"
     ],
     "age_min": null,
-    "age_max": 5,
+    "age_max": null,
     "gender": "female",
     "income_max": null,
     "caste_categories": [],
@@ -26005,6 +26031,7 @@
     "quality_flags": [
       "application_link_host_repaired",
       "source_url_host_repaired",
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "documents_had_fragments"
@@ -28410,7 +28437,7 @@
       "Kerala"
     ],
     "age_min": null,
-    "age_max": 2,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -28438,6 +28465,7 @@
     "quality_flags": [
       "application_link_host_repaired",
       "source_url_host_repaired",
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "category_fixed_by_rule"
@@ -28825,7 +28853,7 @@
     ],
     "scope": "central",
     "states": [],
-    "age_min": 2,
+    "age_min": null,
     "age_max": null,
     "gender": null,
     "income_max": null,
@@ -28850,6 +28878,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "documents_had_fragments"
     ]
@@ -29034,7 +29063,7 @@
     "scope": "central",
     "states": [],
     "age_min": null,
-    "age_max": 12,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [
@@ -29061,6 +29090,7 @@
     "last_verified_date": "2024-03-28",
     "is_stale": true,
     "quality_flags": [
+      "age_implausible",
       "stale_verification"
     ]
   },
@@ -29418,7 +29448,7 @@
       "Goa"
     ],
     "age_min": null,
-    "age_max": 10,
+    "age_max": null,
     "gender": null,
     "income_max": null,
     "caste_categories": [],
@@ -29446,6 +29476,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification",
       "state_scheme_tagged_central",
       "documents_had_fragments"
@@ -30184,7 +30215,7 @@
     ],
     "scope": "central",
     "states": [],
-    "age_min": 3,
+    "age_min": null,
     "age_max": null,
     "gender": null,
     "income_max": null,
@@ -30210,6 +30241,7 @@
     "quality_flags": [
       "source_url_generic",
       "application_link_generic",
+      "age_implausible",
       "stale_verification"
     ]
   },
