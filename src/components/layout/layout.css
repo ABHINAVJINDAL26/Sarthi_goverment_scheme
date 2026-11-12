@@ -1,0 +1,252 @@
+/* ---------- Logo ---------- */
+.s-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.s-logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.s-logo__name {
+  color: var(--s-navy);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.s-logo__tagline {
+  color: var(--s-muted);
+  font-size: 12px;
+}
+
+.s-logo--inverted .s-logo__name {
+  color: #fff;
+}
+
+.s-logo--inverted .s-logo__tagline {
+  color: #c7d2e0;
+}
+
+/* ---------- Header ---------- */
+.s-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: saturate(1.4) blur(8px);
+  border-bottom: 1px solid var(--s-line);
+}
+
+.s-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--s-header-h);
+}
+
+.s-header__brand {
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+
+.s-header__nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.s-header__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: var(--s-ink-2);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.s-header__link:hover {
+  color: var(--s-navy);
+  background: var(--s-line-2);
+}
+
+.s-header__link.is-active {
+  color: var(--s-saffron);
+  background: var(--s-saffron-50);
+  font-weight: 600;
+}
+
+.s-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--s-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--s-navy);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.s-lang:hover {
+  border-color: var(--s-saffron);
+  color: var(--s-saffron);
+}
+
+.s-lang__icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--s-navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ---------- Bottom nav (phones) ---------- */
+.s-bottom-nav {
+  display: none;
+}
+
+/* ---------- Footer ---------- */
+.s-footer {
+  background: var(--s-navy);
+  color: #dbe3ee;
+  margin-top: auto;
+  padding: 44px 0 0;
+}
+
+.s-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 40px;
+}
+
+.s-footer__about p {
+  margin: 14px 0 0;
+  max-width: 560px;
+  font-size: 15px;
+}
+
+.s-footer__disclaimer {
+  color: #aebbd0;
+  font-size: 14px !important;
+}
+
+.s-footer__heading {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.s-footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.s-footer__links a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  color: #dbe3ee;
+}
+
+.s-footer__links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.s-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: #aebbd0;
+  font-size: 13px;
+}
+
+/* Devanagari breaks with letter-spacing and has no uppercase. */
+html[lang='hi'] .s-eyebrow,
+html[lang='hi'] .ex-eyebrow {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 14px;
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 760px) {
+  :root {
+    --s-header-h: 60px;
+  }
+
+  .s-header__nav,
+  .s-logo__tagline {
+    display: none;
+  }
+
+  .s-header__inner {
+    justify-content: space-between;
+  }
+
+  .s-lang {
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .s-bottom-nav {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: calc(var(--s-bottom-nav-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: #fff;
+    border-top: 1px solid var(--s-line);
+    box-shadow: 0 -4px 16px rgba(16, 24, 40, 0.06);
+  }
+
+  .s-bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: var(--s-ink-2);
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .s-bottom-nav__item.is-active {
+    color: var(--s-saffron);
+    font-weight: 600;
+  }
+
+  /* Keep the page clear of the fixed bottom bar. */
+  body {
+    padding-bottom: calc(var(--s-bottom-nav-h) + env(safe-area-inset-bottom));
+  }
+
+  .s-footer__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
