@@ -15,20 +15,20 @@
   },
   "category_after": {
     "Education & Learning": 227,
-    "Agriculture & Farming": 134,
-    "Social Welfare & Empowerment": 83,
+    "Agriculture & Farming": 135,
+    "Social Welfare & Empowerment": 82,
     "Women & Child Development": 73,
-    "Business & Entrepreneurship": 67,
+    "Business & Entrepreneurship": 65,
     "Disability & Rehabilitation": 64,
     "Health & Wellness": 38,
     "Employment & Skills": 36,
-    "Housing & Shelter": 15,
+    "Housing & Shelter": 17,
     "Senior Citizens": 13
   },
   "category_source": {
     "original": 145,
-    "rule": 516,
-    "model": 89
+    "rule": 518,
+    "model": 87
   },
   "category_changed": 243,
   "category_evaluation": {
@@ -66,8 +66,8 @@
         "macro_f1": 0.756
       },
       "final_pipeline": {
-        "accuracy": 0.841,
-        "macro_f1": 0.825
+        "accuracy": 0.864,
+        "macro_f1": 0.842
       }
     },
     "note": "Labels were drafted from scheme names and should be verified by the team."
@@ -120,8 +120,8 @@
     "Tripura": 1
   },
   "missing_rule_fields": {
-    "age_min": 644,
-    "age_max": 653,
+    "age_min": 649,
+    "age_max": 677,
     "income_max": 690,
     "gender": 655
   },
@@ -131,12 +131,13 @@
     "source_url_generic": 259,
     "application_link_generic": 259,
     "state_scheme_tagged_central": 258,
-    "category_fixed_by_rule": 223,
+    "category_fixed_by_rule": 225,
     "generic_state_list": 152,
-    "category_needs_review": 90,
+    "category_needs_review": 93,
     "occupation_fixed_construction_worker": 73,
     "name_text_cleaned": 41,
-    "category_fixed_by_model": 20,
+    "age_implausible": 29,
+    "category_fixed_by_model": 18,
     "occupation_student_suspect": 9,
     "income_possibly_monthly": 8,
     "application_link_host_repaired": 8,

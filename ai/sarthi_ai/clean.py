@@ -44,6 +44,15 @@ def parse_age(row: dict, flags: list[str]) -> tuple[int | None, int | None]:
         if v is not None and not 0 <= v <= 120:
             flags.append("age_out_of_range")
             return None, None
+    # Scraping put other small numbers (course years, years of experience,
+    # number of children) into the age columns, e.g. a scholarship with
+    # "age up to 4". Such limits are unusable, so treat them as UNKNOWN.
+    if hi is not None and hi < 14:
+        flags.append("age_implausible")
+        hi = None
+    if lo is not None and 1 <= lo <= 4:
+        flags.append("age_implausible")
+        lo = None
     return lo, hi
 
 

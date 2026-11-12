@@ -161,3 +161,50 @@ def write_outputs(result: PipelineResult, out_dir: Path = OUTPUT_DIR) -> list[Pa
             })
     paths.append(path)
     return paths
+
+
+# ---------------------------------------------------------------------------
+# Compact export for the website (public/data/schemes.json)
+# ---------------------------------------------------------------------------
+FRONTEND_JSON = AI_DIR.parent / "public" / "data" / "schemes.json"
+
+# Quality flags the UI shows to citizens; the rest are for the admin review queue.
+_UI_FLAGS = {"category_needs_review", "source_url_generic", "deadline_passed", "income_possibly_monthly"}
+
+
+def frontend_records(result: PipelineResult) -> dict:
+    """Small, UI-ready payload: only what the Explore page and detail panel use."""
+    schemes = []
+    for r in result.records:
+        schemes.append({
+            "id": r["id"],
+            "name": r["name"],
+            "category": r["category"],
+            "categories": r["categories"],
+            "scope": r["scope"],
+            "states": r["states"],
+            "age_min": r["age_min"],
+            "age_max": r["age_max"],
+            "gender": r["gender"],
+            "income_max": r["income_max"],
+            "castes": r["caste_categories"],
+            "occupations": r["occupations"],
+            "requires_bpl": r["requires_bpl"],
+            "requires_disability": r["requires_disability"],
+            "documents": r["documents"],
+            "other_documents": r["other_documents"][:6],
+            "deadline": {"type": r["deadline_type"], "date": r["deadline_date"], "text": r["deadline_text"]},
+            "apply_url": r["application_url"],
+            "source_url": r["source_url"],
+            "verified": r["last_verified_date"],
+            "stale": r["is_stale"],
+            "flags": [f for f in r["quality_flags"] if f in _UI_FLAGS],
+        })
+    return {"as_of": result.metrics["as_of"], "count": len(schemes), "schemes": schemes}
+
+
+def write_frontend_json(result: PipelineResult, path: Path = FRONTEND_JSON) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(frontend_records(result), ensure_ascii=False, separators=(",", ":"))
+    path.write_text(payload + "\n", encoding="utf-8")
+    return path
