@@ -1,0 +1,8 @@
+pandas>=2.2
+scikit-learn>=1.4
+rapidfuzz>=3.6
+numpy>=1.26
+# notebook only
+matplotlib>=3.8
+jupyterlab>=4.0
+nbconvert>=7.0
