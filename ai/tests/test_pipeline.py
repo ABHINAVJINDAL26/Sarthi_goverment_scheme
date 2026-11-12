@@ -87,6 +87,11 @@ class CleanTests(unittest.TestCase):
         self.assertEqual(infer_state("Some Scheme", ["https://ikhedut.gujarat.gov.in/"]), ("Gujarat", "url"))
         self.assertEqual(infer_state("Stand-Up India", ["https://www.myscheme.gov.in/"]), (None, None))
 
+    def test_short_domain_hints_need_label_boundary(self):
+        self.assertEqual(infer_state("X", ["https://startup.gov.in/"]), (None, None))
+        self.assertEqual(infer_state("X", ["https://abc.wb.gov.in/"]), ("West Bengal", "url"))
+        self.assertEqual(infer_state("X", ["https://megbocwwb.gov.in/"]), ("Meghalaya", "url"))
+
     def test_deadlines(self):
         flags = []
         self.assertEqual(parse_deadline("2025-03-31", AS_OF, flags)["deadline_type"], "date")

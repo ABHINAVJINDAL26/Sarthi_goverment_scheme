@@ -72,7 +72,10 @@ def infer_state(name: str, urls: list[str | None]) -> tuple[str | None, str | No
     for url in urls:
         host = urlparse(url).netloc if url else ""
         for hint, state in STATE_DOMAIN_HINTS.items():
-            if hint in host:
+            # Dotted hints ("wb.gov", "up.gov") must start a host label, otherwise
+            # "megbocwwb.gov.in" would read as West Bengal and "startup.gov.in" as UP.
+            pattern = r"(^|[.-])" + re.escape(hint) if "." in hint else re.escape(hint)
+            if re.search(pattern, host):
                 return state, "url"
     return None, None
 
