@@ -126,6 +126,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
             <input
               type="search"
               className="ex-search__input"
+              data-testid="explore-search-input"
               placeholder={t('ex.placeholder')}
               aria-label={t('home.searchLabel')}
               value={draft}
@@ -135,11 +136,11 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                 if (e.target.value === '') update({ q: '' })
               }}
             />
-            <button type="submit" className="ex-search__btn">{t('ex.search')}</button>
+            <button type="submit" className="ex-search__btn" data-testid="explore-search-submit">{t('ex.search')}</button>
           </form>
           <div className="ex-examples" aria-label={t('ex.examples')}>
             {EXAMPLES[i.lang].map((ex) => (
-              <button key={ex} type="button" className="ex-example" onClick={() => update({ q: ex })}>
+              <button key={ex} type="button" className="ex-example" data-testid="example-chip" onClick={() => update({ q: ex })}>
                 {ex}
               </button>
             ))}
@@ -151,6 +152,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
         <button
           type="button"
           className="ex-filters-toggle"
+          data-testid="filters-toggle"
           aria-expanded={filtersOpen}
           aria-controls="ex-filters"
           onClick={() => setFiltersOpen((o) => !o)}
@@ -162,7 +164,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
         <aside id="ex-filters" className={`ex-filters ${filtersOpen ? 'is-open' : ''}`} aria-label={t('ex.filters')}>
           <div className="ex-filter">
             <label className="ex-filter__label" htmlFor="ex-state">{t('ex.yourState')}</label>
-            <select id="ex-state" className="ex-select" value={filters.state} onChange={(e) => update({ state: e.target.value })}>
+            <select id="ex-state" data-testid="state-select" className="ex-select" value={filters.state} onChange={(e) => update({ state: e.target.value })}>
               <option value="">{t('ex.allStates')}</option>
               {states.map((st) => <option key={st} value={st}>{i.stateName(st)}</option>)}
             </select>
@@ -173,7 +175,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
             <span className="ex-filter__label">{t('ex.schemeType')}</span>
             <div className="ex-segment" role="group" aria-label={t('ex.schemeType')}>
               {([['', 'ex.typeAll'], ['central', 'ex.typeCentral'], ['state', 'ex.typeState']] as const).map(([v, label]) => (
-                <button key={label} type="button" aria-pressed={filters.scope === v}
+                <button key={label} type="button" aria-pressed={filters.scope === v} data-testid={`scope-${v || 'all'}`}
                   className={`ex-segment__btn ${filters.scope === v ? 'is-active' : ''}`} onClick={() => update({ scope: v })}>
                   {t(label)}
                 </button>
@@ -185,7 +187,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
             <span className="ex-filter__label">{t('ex.whoFor')}</span>
             <div className="ex-pills">
               {AUDIENCES.map((a) => (
-                <button key={a.id} type="button" aria-pressed={filters.who === a.id}
+                <button key={a.id} type="button" aria-pressed={filters.who === a.id} data-testid={`who-pill-${a.id}`}
                   className={`ex-pill ${filters.who === a.id ? 'is-active' : ''}`}
                   onClick={() => update({ who: filters.who === a.id ? '' : a.id })}>
                   {i.audience(a.id)}
@@ -195,7 +197,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
           </div>
 
           {activeFilterCount > 0 && (
-            <button type="button" className="ex-link-btn" onClick={clearFilters}>
+            <button type="button" className="ex-link-btn" data-testid="clear-filters" onClick={clearFilters}>
               {t('ex.clearFilters', { count: activeFilterCount })}
             </button>
           )}
@@ -208,7 +210,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
               {t('ex.all')}
             </button>
             {[...categoryCounts.entries()].sort((a, b) => b[1] - a[1]).map(([c, n]) => (
-              <button key={c} type="button" aria-pressed={filters.category === c}
+              <button key={c} type="button" aria-pressed={filters.category === c} data-testid="category-chip"
                 className={`ex-cat ${filters.category === c ? 'is-active' : ''}`}
                 onClick={() => update({ category: filters.category === c ? '' : c })}>
                 {i.category(c, true)} <span className="ex-cat__count">{num(n)}</span>
@@ -217,14 +219,14 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
           </div>
 
           <div className="ex-toolbar">
-            <p className="ex-count">
+            <p className="ex-count" data-testid="result-count">
               {schemes.status === 'ready'
                 ? <><strong>{countText}</strong>{filters.q ? <> {t('ex.resultFor', { q: filters.q })}</> : null}</>
                 : ' '}
             </p>
             <label className="ex-sort">
               <span>{t('ex.sort')}</span>
-              <select className="ex-select ex-select--sm" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+              <select className="ex-select ex-select--sm" data-testid="sort-select" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
                 <option value="relevance">{t('ex.sortBest')}</option>
                 <option value="name">{t('ex.sortName')}</option>
                 <option value="verified">{t('ex.sortVerified')}</option>
@@ -246,7 +248,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
           )}
 
           {schemes.status === 'ready' && results.length === 0 && (
-            <div className="ex-empty">
+            <div className="ex-empty" data-testid="no-results">
               <p className="ex-empty__title">{t('ex.noResults')}</p>
               <p className="ex-muted">{t('ex.noResultsHint')}</p>
               {activeFilterCount > 0 && (
@@ -265,13 +267,13 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                   const tags = cardTags(s, i)
                   return (
                     <li key={s.id}>
-                      <article className="ex-card">
+                      <article className="ex-card" data-testid="scheme-card">
                         <div className="ex-card__top">
                           <span className="ex-chip">{i.category(s.category, true)}</span>
                           <span className={`ex-scope ex-scope--${s.scope}`}>{s.scope === 'state' ? t('ex.state') : t('ex.central')}</span>
                         </div>
                         <h3 className="ex-card__title">
-                          <button type="button" className="ex-card__open" onClick={() => setSelected(s)}>{s.name}</button>
+                          <button type="button" className="ex-card__open" data-testid="scheme-card-title" onClick={() => setSelected(s)}>{s.name}</button>
                         </h3>
                         <p className="ex-card__place">{placeLabel(s, i)} · {deadlineLabel(s, i)}</p>
                         {tags.length > 0 && (
@@ -286,7 +288,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                           <span className={`ex-verified ${s.stale ? 'is-stale' : ''}`}>
                             {t(s.stale ? 'ex.needsRecheck' : 'ex.verified', { date: i.date(s.verified) })}
                           </span>
-                          <button type="button" className="ex-btn ex-btn--sm" onClick={() => setSelected(s)} aria-label={`${t('ex.viewDetails')}: ${s.name}`}>
+                          <button type="button" className="ex-btn ex-btn--sm" data-testid="scheme-card-details" onClick={() => setSelected(s)} aria-label={`${t('ex.viewDetails')}: ${s.name}`}>
                             {t('ex.viewDetails')}
                           </button>
                         </div>
@@ -297,7 +299,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
               </ul>
               {visible < results.length && (
                 <div className="ex-more">
-                  <button type="button" className="ex-btn" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
+                  <button type="button" className="ex-btn" data-testid="show-more" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
                     {t('ex.showMore', { count: num(results.length - visible) })}
                   </button>
                 </div>

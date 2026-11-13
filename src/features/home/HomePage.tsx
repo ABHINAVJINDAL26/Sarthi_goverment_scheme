@@ -80,12 +80,13 @@ export default function HomePage() {
                 id="h-search-input"
                 type="search"
                 className="h-search__input"
+                data-testid="home-search-input"
                 placeholder={t('home.searchPlaceholder')}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 enterKeyHint="search"
               />
-              <button type="submit" className="s-btn s-btn--primary h-search__btn">{t('home.searchButton')}</button>
+              <button type="submit" className="s-btn s-btn--primary h-search__btn" data-testid="home-search-submit">{t('home.searchButton')}</button>
             </form>
 
             <div className="h-examples">
@@ -124,10 +125,10 @@ export default function HomePage() {
               const count = stats?.byAudience.get(id)
               return (
                 <li key={id}>
-                  <a href={href} onClick={onInternalLink(href)} className={`h-who__tile h-tone--${tone}`}>
+                  <a href={href} onClick={onInternalLink(href)} className={`h-who__tile h-tone--${tone}`} data-testid={`who-${id}`}>
                     <span className="h-who__icon"><Icon width={28} height={28} /></span>
                     <span className="h-who__label">{i.audience(id)}</span>
-                    <span className="h-who__count">
+                    <span className="h-who__count" data-testid={`who-count-${id}`}>
                       {count === undefined ? '…' : t('home.schemesCount', { count: num(count) })}
                     </span>
                   </a>
@@ -147,7 +148,7 @@ export default function HomePage() {
               const href = exploreUrl({ category: cat })
               return (
                 <li key={cat}>
-                  <a href={href} onClick={onInternalLink(href)} className="h-topic">
+                  <a href={href} onClick={onInternalLink(href)} className="h-topic" data-testid="topic-chip">
                     {i.category(cat, true)} <span className="h-topic__count">{num(count)}</span>
                   </a>
                 </li>
@@ -185,7 +186,7 @@ export default function HomePage() {
               [stats?.state, 'home.statState'],
               [stats?.states, 'home.statStates'],
             ].map(([value, label]) => (
-              <div key={label as string} className="h-stat">
+              <div key={label as string} className="h-stat" data-testid="home-stat">
                 <dt>{t(label as 'home.statSchemes')}</dt>
                 <dd>{value === undefined ? '…' : num(value as number)}</dd>
               </div>

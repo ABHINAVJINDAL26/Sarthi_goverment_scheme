@@ -33,6 +33,7 @@ export function LanguageToggle() {
     <button
       type="button"
       className="s-lang"
+      data-testid="lang-toggle"
       onClick={() => setLang(next)}
       lang={next}
       aria-label={t('lang.switchTo')}
@@ -59,6 +60,7 @@ export default function AppHeader({ active }: { active: string }) {
               href={item.path}
               onClick={onInternalLink(item.path)}
               className={`s-header__link ${active === item.id ? 'is-active' : ''}`}
+              data-testid={`nav-${item.id}`}
               aria-current={active === item.id ? 'page' : undefined}
             >
               {t(item.label)}
