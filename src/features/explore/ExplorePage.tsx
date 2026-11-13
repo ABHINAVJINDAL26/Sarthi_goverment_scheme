@@ -235,15 +235,15 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
           </div>
 
           {schemes.status === 'loading' && (
-            <div className="ex-grid" aria-busy="true">
+            <div className="ex-grid" aria-busy="true" data-testid="loading">
               {Array.from({ length: 6 }, (_, k) => <div key={k} className="ex-card ex-card--skeleton" />)}
             </div>
           )}
 
           {schemes.status === 'error' && (
-            <div className="ex-empty">
+            <div className="ex-empty" data-testid="load-error">
               <p>{t('ex.loadError', { error: schemes.message })}</p>
-              <button type="button" className="ex-btn ex-btn--primary" onClick={schemes.retry}>{t('ex.retry')}</button>
+              <button type="button" className="ex-btn ex-btn--primary" data-testid="retry-button" onClick={schemes.retry}>{t('ex.retry')}</button>
             </div>
           )}
 
@@ -267,7 +267,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                   const tags = cardTags(s, i)
                   return (
                     <li key={s.id}>
-                      <article className="ex-card" data-testid="scheme-card">
+                      <article className="ex-card" data-testid="scheme-card" data-scheme-id={s.id} data-scope={s.scope} data-verified={s.verified} data-stale={s.stale}>
                         <div className="ex-card__top">
                           <span className="ex-chip">{i.category(s.category, true)}</span>
                           <span className={`ex-scope ex-scope--${s.scope}`}>{s.scope === 'state' ? t('ex.state') : t('ex.central')}</span>
