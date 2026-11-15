@@ -1,0 +1,4 @@
+# Minimal packages to run ai/tests in CI (no notebook / plotting tools).
+scikit-learn>=1.4
+numpy>=1.26
+rapidfuzz>=3.6

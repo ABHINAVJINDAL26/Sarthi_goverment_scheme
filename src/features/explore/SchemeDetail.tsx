@@ -33,7 +33,7 @@ export default function SchemeDetail({ scheme: s, onClose }: Props) {
 
   return (
     <div className="ex-modal" role="presentation" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="ex-modal__panel" role="dialog" aria-modal="true" aria-labelledby="ex-detail-title">
+      <div className="ex-modal__panel" data-testid="scheme-detail" role="dialog" aria-modal="true" aria-labelledby="ex-detail-title">
         <header className="ex-modal__header">
           <div>
             <div className="ex-chip-row">
@@ -44,7 +44,7 @@ export default function SchemeDetail({ scheme: s, onClose }: Props) {
               {s.scope === 'state' ? t('detail.stateScheme') : t('detail.centralScheme')} · {placeLabel(s, i)} · {deadlineLabel(s, i)}
             </p>
           </div>
-          <button ref={closeRef} type="button" className="ex-icon-btn" onClick={onClose} aria-label={t('detail.close')}>
+          <button ref={closeRef} type="button" className="ex-icon-btn" data-testid="scheme-detail-close" onClick={onClose} aria-label={t('detail.close')}>
             ✕
           </button>
         </header>
@@ -55,7 +55,7 @@ export default function SchemeDetail({ scheme: s, onClose }: Props) {
 
           <section className="ex-section">
             <h3 className="ex-section__title">{t('detail.whoCanApply')}</h3>
-            <ul className="ex-list">
+            <ul className="ex-list" data-testid="eligibility-list">
               {eligibilityLines(s, i).map((line) => <li key={line}>{line}</li>)}
             </ul>
           </section>
@@ -63,7 +63,7 @@ export default function SchemeDetail({ scheme: s, onClose }: Props) {
           <section className="ex-section">
             <h3 className="ex-section__title">{t('detail.documents', { count: docs.length })}</h3>
             {docs.length ? (
-              <ul className="ex-checklist">
+              <ul className="ex-checklist" data-testid="documents-list">
                 {docs.map((d) => <li key={d}>{d}</li>)}
               </ul>
             ) : (
@@ -75,7 +75,7 @@ export default function SchemeDetail({ scheme: s, onClose }: Props) {
             <h3 className="ex-section__title">{t('detail.links')}</h3>
             <div className="ex-links">
               {s.apply_url && (
-                <a className="ex-btn ex-btn--primary" href={s.apply_url} target="_blank" rel="noopener noreferrer">
+                <a className="ex-btn ex-btn--primary" data-testid="apply-link" href={s.apply_url} target="_blank" rel="noopener noreferrer">
                   {t('detail.apply')}
                 </a>
               )}

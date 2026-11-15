@@ -16,7 +16,7 @@ export default function HelpPage() {
 
         <div className="hp-faq">
           {Array.from({ length: FAQ_COUNT }, (_, idx) => idx + 1).map((n) => (
-            <details key={n} className="hp-item" open={n === 1}>
+            <details key={n} className="hp-item" data-testid="faq-item" open={n === 1}>
               <summary className="hp-q">{t(`help.q${n}` as MessageKey)}</summary>
               <p className="hp-a">{t(`help.a${n}` as MessageKey)}</p>
             </details>

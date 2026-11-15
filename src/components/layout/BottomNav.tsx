@@ -8,7 +8,7 @@ const ICONS: Record<string, typeof HomeIcon> = { home: HomeIcon, explore: Explor
 export default function BottomNav({ active }: { active: string }) {
   const { t } = useI18n()
   return (
-    <nav className="s-bottom-nav" aria-label={t('nav.mobile')}>
+    <nav className="s-bottom-nav" aria-label={t('nav.mobile')} data-testid="bottom-nav">
       {NAV_ITEMS.map((item) => {
         const Icon = ICONS[item.id]
         const isActive = active === item.id
@@ -18,6 +18,7 @@ export default function BottomNav({ active }: { active: string }) {
             href={item.path}
             onClick={onInternalLink(item.path)}
             className={`s-bottom-nav__item ${isActive ? 'is-active' : ''}`}
+            data-testid={`bottom-nav-${item.id}`}
             aria-current={isActive ? 'page' : undefined}
           >
             <Icon width={24} height={24} />
