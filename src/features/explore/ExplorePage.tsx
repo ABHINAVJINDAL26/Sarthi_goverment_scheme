@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './explore.css'
 import { search } from './search'
 import type { Scheme } from './types'
 import { useSchemes } from './useSchemes'
-import { AUDIENCES, cardTags, deadlineLabel, placeLabel } from './format'
+import { AUDIENCES, BENEFIT_TYPES, cardTags, deadlineLabel, placeLabel, schemeName, schemeSummary } from './format'
 import SchemeDetail from './SchemeDetail'
 import { navigate } from '../../lib/router'
 import { useI18n } from '../../i18n'
 
 const PAGE_SIZE = 24
 const EXAMPLES = {
-  en: ['beti ki padhai', 'kisan', 'old age pension', 'mazdoor', 'ghar ke liye loan', 'scholarship'],
-  hi: ['बेटी की पढ़ाई', 'किसान', 'विधवा पेंशन', 'मज़दूर', 'छात्रवृत्ति', 'दिव्यांग'],
+  en: ['kisan', 'old age pension', 'beti ki padhai', 'ilaj', 'gas connection', 'rehdi loan'],
+  hi: ['किसान', 'विधवा पेंशन', 'छात्रवृत्ति', 'इलाज', 'बीमा', 'दिव्यांग'],
 }
 
 type Sort = 'relevance' | 'name' | 'verified'
@@ -21,7 +21,10 @@ interface Filters {
   category: string
   state: string
   who: string
+  benefit: string
   scope: '' | 'central' | 'state'
+  /** Open scheme (shareable link: /explore?scheme=pm-kisan). */
+  scheme: string
 }
 
 function readFilters(search: string): Filters {
@@ -32,7 +35,9 @@ function readFilters(search: string): Filters {
     category: p.get('category') ?? '',
     state: p.get('state') ?? '',
     who: p.get('who') ?? '',
+    benefit: p.get('benefit') ?? '',
     scope: scope === 'central' || scope === 'state' ? scope : '',
+    scheme: p.get('scheme') ?? '',
   }
 }
 
@@ -42,7 +47,9 @@ function writeFilters(f: Filters) {
   if (f.category) p.set('category', f.category)
   if (f.state) p.set('state', f.state)
   if (f.who) p.set('who', f.who)
+  if (f.benefit) p.set('benefit', f.benefit)
   if (f.scope) p.set('scope', f.scope)
+  if (f.scheme) p.set('scheme', f.scheme)
   const qs = p.toString()
   navigate('/explore' + (qs ? `?${qs}` : ''), { replace: true })
 }
@@ -55,13 +62,12 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
   const [draft, setDraft] = useState(filters.q)
   const [sort, setSort] = useState<Sort>('relevance')
   const [visible, setVisible] = useState(PAGE_SIZE)
-  const [selected, setSelected] = useState<Scheme | null>(null)
   const [filtersOpen, setFiltersOpen] = useState(false) // phones only; always open on desktop
 
   const update = (patch: Partial<Filters>) => {
     const next = { ...filters, ...patch }
     setFilters(next)
-    setVisible(PAGE_SIZE)
+    if (!('scheme' in patch && Object.keys(patch).length === 1)) setVisible(PAGE_SIZE)
     writeFilters(next)
   }
 
@@ -69,6 +75,8 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
   useEffect(() => setDraft(filters.q), [filters.q])
 
   const all = schemes.status === 'ready' ? schemes.data.schemes : []
+  const selected = useMemo(() => all.find((s) => s.id === filters.scheme) ?? null, [all, filters.scheme])
+  const openScheme = (s: Scheme) => update({ scheme: s.id })
 
   // 1) text search (or everything), 2) filters, 3) sort
   const { results, matchedById, categoryCounts } = useMemo(() => {
@@ -85,6 +93,7 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
     const passesNonCategory = (s: Scheme) =>
       (!filters.state || s.scope === 'central' || s.states.includes(filters.state)) &&
       (!filters.scope || s.scope === filters.scope) &&
+      (!filters.benefit || s.benefit_types.includes(filters.benefit as Scheme['benefit_types'][number])) &&
       (!audience || audience.test(s))
 
     const beforeCategory = base.filter(passesNonCategory)
@@ -93,18 +102,24 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
 
     let results = filters.category ? beforeCategory.filter((s) => s.categories.includes(filters.category)) : beforeCategory
     const effectiveSort = sort === 'relevance' && !filters.q.trim() ? 'name' : sort
-    if (effectiveSort === 'name') results = [...results].sort((a, b) => a.name.localeCompare(b.name))
+    if (effectiveSort === 'name') {
+      const key = (s: Scheme) => (i.lang === 'hi' ? s.name_hi : s.name)
+      results = [...results].sort((a, b) => key(a).localeCompare(key(b), i.lang === 'hi' ? 'hi' : 'en'))
+    }
     if (effectiveSort === 'verified') results = [...results].sort((a, b) => b.verified.localeCompare(a.verified))
     return { results, matchedById, categoryCounts }
-  }, [all, schemes.index, filters, sort])
+  }, [all, schemes.index, filters.q, filters.state, filters.scope, filters.benefit, filters.who, filters.category, sort, i.lang])
 
   const states = useMemo(
     () => [...new Set(all.flatMap((s) => s.states))].sort((a, b) => i.stateName(a).localeCompare(i.stateName(b))),
     [all, i],
   )
-  const closeDetail = useCallback(() => setSelected(null), [])
-  const activeFilterCount = [filters.category, filters.state, filters.who, filters.scope].filter(Boolean).length
-  const clearFilters = () => update({ category: '', state: '', who: '', scope: '' })
+  // `update` closes over the latest filters; keep a stable callback for the modal's effect.
+  const updateRef = useRef(update)
+  updateRef.current = update
+  const closeDetail = useCallback(() => updateRef.current({ scheme: '' }), [])
+  const activeFilterCount = [filters.category, filters.state, filters.who, filters.scope, filters.benefit].filter(Boolean).length
+  const clearFilters = () => update({ category: '', state: '', who: '', scope: '', benefit: '' })
 
   const countText = results.length === 1 ? t('ex.resultCountOne') : t('ex.resultCount', { count: num(results.length) })
 
@@ -196,6 +211,19 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
             </div>
           </div>
 
+          <div className="ex-filter">
+            <span className="ex-filter__label">{t('ex.benefitType')}</span>
+            <div className="ex-pills">
+              {BENEFIT_TYPES.filter((b) => all.some((s) => s.benefit_types.includes(b))).map((b) => (
+                <button key={b} type="button" aria-pressed={filters.benefit === b} data-testid={`benefit-pill-${b}`}
+                  className={`ex-pill ${filters.benefit === b ? 'is-active' : ''}`}
+                  onClick={() => update({ benefit: filters.benefit === b ? '' : b })}>
+                  {i.benefit(b)}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {activeFilterCount > 0 && (
             <button type="button" className="ex-link-btn" data-testid="clear-filters" onClick={clearFilters}>
               {t('ex.clearFilters', { count: activeFilterCount })}
@@ -265,16 +293,18 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                 {results.slice(0, visible).map((s) => {
                   const matched = matchedById.get(s.id)
                   const tags = cardTags(s, i)
+                  const recheck = s.status === 'needs_recheck'
                   return (
                     <li key={s.id}>
-                      <article className="ex-card" data-testid="scheme-card" data-scheme-id={s.id} data-scope={s.scope} data-verified={s.verified} data-stale={s.stale}>
+                      <article className="ex-card" data-testid="scheme-card" data-scheme-id={s.id} data-scope={s.scope} data-verified={s.verified} data-stale={recheck}>
                         <div className="ex-card__top">
                           <span className="ex-chip">{i.category(s.category, true)}</span>
                           <span className={`ex-scope ex-scope--${s.scope}`}>{s.scope === 'state' ? t('ex.state') : t('ex.central')}</span>
                         </div>
                         <h3 className="ex-card__title">
-                          <button type="button" className="ex-card__open" data-testid="scheme-card-title" onClick={() => setSelected(s)}>{s.name}</button>
+                          <button type="button" className="ex-card__open" data-testid="scheme-card-title" onClick={() => openScheme(s)}>{schemeName(s, i)}</button>
                         </h3>
+                        <p className="ex-card__summary">{schemeSummary(s, i)}</p>
                         <p className="ex-card__place">{placeLabel(s, i)} · {deadlineLabel(s, i)}</p>
                         {tags.length > 0 && (
                           <div className="ex-chip-row">
@@ -285,10 +315,10 @@ export default function ExplorePage({ initialSearch }: { initialSearch: string }
                           <p className="ex-matched">{t('ex.matched', { words: matched.join(', ') })}</p>
                         )}
                         <div className="ex-card__footer">
-                          <span className={`ex-verified ${s.stale ? 'is-stale' : ''}`}>
-                            {t(s.stale ? 'ex.needsRecheck' : 'ex.verified', { date: i.date(s.verified) })}
+                          <span className={`ex-verified ${recheck ? 'is-stale' : ''}`}>
+                            {t(recheck ? 'ex.needsRecheck' : 'ex.verified', { date: i.date(s.verified) })}
                           </span>
-                          <button type="button" className="ex-btn ex-btn--sm" data-testid="scheme-card-details" onClick={() => setSelected(s)} aria-label={`${t('ex.viewDetails')}: ${s.name}`}>
+                          <button type="button" className="ex-btn ex-btn--sm" data-testid="scheme-card-details" onClick={() => openScheme(s)} aria-label={`${t('ex.viewDetails')}: ${schemeName(s, i)}`}>
                             {t('ex.viewDetails')}
                           </button>
                         </div>

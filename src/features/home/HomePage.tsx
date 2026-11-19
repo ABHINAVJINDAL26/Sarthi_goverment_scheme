@@ -22,8 +22,8 @@ const AUDIENCE_TILES: Array<{ id: string; Icon: typeof SchoolIcon; tone: string 
 ]
 
 const EXAMPLES = {
-  en: ['kisan', 'beti ki padhai', 'old age pension', 'scholarship'],
-  hi: ['किसान', 'बेटी की पढ़ाई', 'विधवा पेंशन', 'छात्रवृत्ति'],
+  en: ['kisan', 'old age pension', 'ilaj', 'scholarship'],
+  hi: ['किसान', 'विधवा पेंशन', 'इलाज', 'छात्रवृत्ति'],
 }
 
 const exploreUrl = (params: Record<string, string>) => '/explore?' + new URLSearchParams(params).toString()
@@ -44,7 +44,7 @@ export default function HomePage() {
       total: all.length,
       central: all.filter((s) => s.scope === 'central').length,
       state: all.filter((s) => s.scope === 'state').length,
-      states: new Set(all.flatMap((s) => s.states)).size,
+      verified: all.filter((s) => s.status === 'verified').length,
       byAudience,
       categories: [...byCategory.entries()].sort((a, b) => b[1] - a[1]),
     }
@@ -184,7 +184,7 @@ export default function HomePage() {
               [stats?.total, 'home.statSchemes'],
               [stats?.central, 'home.statCentral'],
               [stats?.state, 'home.statState'],
-              [stats?.states, 'home.statStates'],
+              [stats?.verified, 'home.statVerified'],
             ].map(([value, label]) => (
               <div key={label as string} className="h-stat" data-testid="home-stat">
                 <dt>{t(label as 'home.statSchemes')}</dt>

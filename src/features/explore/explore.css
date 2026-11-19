@@ -351,6 +351,17 @@
   border-radius: 4px;
 }
 
+.ex-card__summary {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ex-ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .ex-card__place {
   margin: 0;
   font-size: 13px;
@@ -540,9 +551,6 @@
 }
 
 .ex-modal__header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -562,6 +570,131 @@
   margin: 0;
   font-size: 13px;
   color: var(--ex-muted);
+}
+
+.ex-modal__alt {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: var(--ex-ink-2);
+}
+
+.ex-modal__actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.ex-chip--warn {
+  background: #fff7e6;
+  color: var(--ex-warn);
+}
+
+/* Section menu under the header (jumps to a section; every section stays in the page) */
+.ex-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: #fff;
+  border-bottom: 1px solid var(--ex-line);
+  padding: 8px 20px;
+}
+
+.ex-tab {
+  flex-shrink: 0;
+  border: 1px solid #e2dcd2;
+  background: #fff;
+  color: var(--ex-ink-2);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ex-tab:hover {
+  border-color: var(--ex-accent);
+  color: var(--ex-accent);
+}
+
+.ex-section {
+  scroll-margin-top: 56px;
+}
+
+.ex-section__sub {
+  margin: 14px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ex-ink-2);
+}
+
+.ex-summary {
+  margin: 0 0 4px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ex-list--tight {
+  margin-top: 6px;
+  gap: 4px;
+}
+
+.ex-list--no li::marker {
+  content: '✕  ';
+  color: #b42318;
+}
+
+.ex-steps {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.ex-helpline {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ex-faqs {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ex-faq {
+  border: 1px solid var(--ex-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.ex-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ex-faq p {
+  margin: 8px 0 0;
+  color: var(--ex-ink-2);
+}
+
+.ex-sources {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.ex-sources a {
+  color: var(--s-navy);
 }
 
 .ex-icon-btn {

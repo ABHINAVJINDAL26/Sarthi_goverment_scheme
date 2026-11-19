@@ -77,8 +77,17 @@ const SYNONYM_GROUPS: Array<[string[], string[]]> = [
   [['dalit', 'दलित'], ['sc', 'scheduled', 'caste', 'castes']],
   [['adivasi', 'आदिवासी', 'janjati', 'जनजाति', 'tribal'], ['st', 'scheduled', 'tribe', 'tribes', 'tribal']],
   [['pashu', 'पशु', 'gaay', 'gay', 'गाय', 'bhains', 'dairy', 'doodh', 'दूध'], ['cattle', 'dairy', 'livestock', 'milk', 'animal']],
-  [['kalakar', 'कलाकार', 'artist'], ['artist', 'artists', 'artisan', 'artisans', 'culture']],
+  [['kalakar', 'कलाकार', 'artist', 'karigar', 'कारीगर', 'darzi', 'दर्ज़ी', 'lohar', 'लोहार', 'kumhar', 'कुम्हार', 'mochi', 'मोची', 'nai', 'नाई', 'sunar', 'सुनार'],
+    ['artist', 'artists', 'artisan', 'artisans', 'craftsperson', 'tailor', 'blacksmith', 'potter', 'cobbler', 'barber', 'goldsmith', 'vishwakarma']],
   [['khel', 'खेल', 'khiladi', 'खिलाड़ी'], ['sports', 'sport', 'games']],
+  [['bima', 'बीमा', 'beema'], ['insurance', 'cover', 'bima']],
+  [['gas', 'गैस', 'lpg', 'cylinder', 'सिलेंडर', 'chulha', 'चूल्हा'], ['lpg', 'gas', 'connection', 'ujjwala', 'refill']],
+  [['bijli', 'बिजली', 'solar', 'सोलर', 'surya', 'सूर्य'], ['solar', 'rooftop', 'electricity', 'surya']],
+  [['ration', 'राशन', 'anaj', 'अनाज', 'gehu', 'गेहूँ', 'chawal', 'चावल', 'khana', 'खाना'], ['foodgrains', 'ration', 'food', 'anna']],
+  [['rehdi', 'रेहड़ी', 'thela', 'ठेला', 'patri', 'पटरी', 'hawker', 'vendor', 'feriwala'], ['street', 'vendor', 'vendors', 'svanidhi']],
+  [['ilaj', 'ilaaj', 'ayushman', 'आयुष्मान'], ['health', 'hospital', 'treatment', 'ayushman', 'jan', 'arogya']],
+  [['bachat', 'बचत', 'saving', 'savings'], ['savings', 'account', 'deposit']],
+  [['training', 'ट्रेनिंग', 'skill', 'kaushal', 'कौशल', 'hunar', 'हुनर'], ['training', 'skill', 'kaushal', 'certification']],
 ]
 
 // Hindi names of states, so "राजस्थान" finds Rajasthan schemes.
@@ -103,7 +112,9 @@ for (const [key, targets] of Object.entries(STATE_ALIASES)) SYNONYMS.set(normali
 // ---------------------------------------------------------------------------
 
 /** How much a word counts depending on where it appears in a scheme. */
-const FIELD_WEIGHTS = { name: 3, category: 2, occupation: 1.6, state: 1.6, caste: 1.2, document: 0.4 } as const
+const FIELD_WEIGHTS = {
+  name: 3, category: 2, occupation: 1.6, state: 1.6, summary: 1.3, caste: 1.2, benefit: 1, ministry: 0.6, document: 0.4,
+} as const
 
 interface IndexedScheme {
   scheme: Scheme
@@ -127,15 +138,20 @@ function addTerms(terms: Map<string, number>, text: string, weight: number) {
 export function buildIndex(schemes: Scheme[]): SearchIndex {
   const docs = schemes.map((scheme) => {
     const terms = new Map<string, number>()
-    addTerms(terms, scheme.name, FIELD_WEIGHTS.name)
+    addTerms(terms, [scheme.name, scheme.name_hi, scheme.short_name ?? ''].join(' '), FIELD_WEIGHTS.name)
     addTerms(terms, scheme.categories.join(' '), FIELD_WEIGHTS.category)
     addTerms(terms, scheme.occupations.join(' ').replace(/_/g, ' '), FIELD_WEIGHTS.occupation)
     addTerms(terms, scheme.states.join(' '), FIELD_WEIGHTS.state)
+    addTerms(terms, `${scheme.summary} ${scheme.summary_hi}`, FIELD_WEIGHTS.summary)
     addTerms(terms, scheme.castes.join(' '), FIELD_WEIGHTS.caste)
-    addTerms(terms, [...scheme.documents, ...scheme.other_documents].join(' '), FIELD_WEIGHTS.document)
+    addTerms(terms, [...scheme.benefits, ...scheme.benefit_types].join(' ').replace(/_/g, ' '), FIELD_WEIGHTS.benefit)
+    addTerms(terms, scheme.ministry, FIELD_WEIGHTS.ministry)
+    addTerms(terms, scheme.documents.join(' '), FIELD_WEIGHTS.document)
     if (scheme.gender === 'female') addTerms(terms, 'women female', FIELD_WEIGHTS.occupation)
     if (scheme.requires_disability) addTerms(terms, 'disability disabled', FIELD_WEIGHTS.occupation)
-    return { scheme, terms, nameNorm: normalize(scheme.name) }
+    // Token-joined so "pm kisan" matches the short name "PM-KISAN".
+    const nameNorm = [scheme.name, scheme.name_hi, scheme.short_name ?? ''].map((n) => tokenize(n).join(' ')).join(' | ')
+    return { scheme, terms, nameNorm }
   })
   const df = new Map<string, number>()
   for (const d of docs) for (const t of d.terms.keys()) df.set(t, (df.get(t) ?? 0) + 1)
@@ -219,12 +235,12 @@ export interface SearchHit {
 }
 
 /** If at least this many schemes match every query word, partial matches are dropped. */
-const MIN_FULL_MATCHES = 5
+const MIN_FULL_MATCHES = 3
 
 export function search(index: SearchIndex, query: string, limit = Infinity): SearchHit[] {
   const groups = expandQuery(query, index).filter((g) => g.variants.size > 0)
   if (groups.length === 0) return []
-  const phrase = normalize(query).trim()
+  const phrase = tokenize(query).join(' ')
   const hits: SearchHit[] = []
 
   for (const doc of index.docs) {

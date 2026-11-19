@@ -107,25 +107,31 @@ The labels were drafted from scheme names only; please verify them (and fill in 
 }
 ```
 
-## On the website: Explore page (`/explore`)
+## Website data
 
-The pipeline also writes `public/data/schemes.json` (545 KB, about 46 KB gzipped), a compact copy that the
-React app loads. Code lives in `src/features/explore/`:
+The website does **not** load the pipeline output. It loads the hand-verified dataset in
+`public/data/schemes.json` (37 schemes written from official sources; see the main README, "Scheme data").
+The pipeline writes its compact export to `ai/output/schemes_web.json` instead, so running it can never
+overwrite the verified data. Use the cleaned 750-scheme output as a list of candidates to verify next.
+
+Website code lives in `src/features/explore/`:
 
 | File | What it does |
 |---|---|
-| `search.ts` | Smart search that runs in the browser: Hindi / Hinglish synonym expansion (`kisan`, `किसान`, `beti`, `padhai`, `mazdoor` ...), typo tolerance (edit distance), field-weighted TF-IDF ranking, and "Matched: ..." explanations. Pure TypeScript with no React, so the Express backend can reuse it. |
-| `search.test.ts` | 12 checks on the real data. Run with `node src/features/explore/search.test.ts` (Node 22.18+). |
-| `ExplorePage.tsx` | Search box, state / scheme type / "who is it for" filters, category chips, sorting, URL-shareable filters. |
-| `SchemeDetail.tsx` | Detail panel: plain-language eligibility, document checklist, official links, freshness warning. |
+| `search.ts` | Smart search that runs in the browser: Hindi / Hinglish synonym expansion (`kisan`, `किसान`, `ilaj`, `gas`, `rehdi` ...), typo tolerance (edit distance), field-weighted TF-IDF ranking over names (English + Hindi), summaries, benefits and rules, and "Matched: ..." explanations. Pure TypeScript with no React, so the Express backend can reuse it. |
+| `search.test.ts` | Search checks on the real data. |
+| `data.test.ts` | Data checks: official sources, Hindi text, valid rules, deadlines. Run both with `npm test`. |
+| `ExplorePage.tsx` | Search box, state / scheme type / "who is it for" / "what you get" filters, category chips, sorting, URL-shareable filters and scheme links (`/explore?scheme=pm-kisan`). |
+| `SchemeDetail.tsx` | Detail panel with five sections: overview and benefits, eligibility and exclusions, documents, how to apply (online / offline, helpline), FAQs and official sources. |
 
-After changing the CSV or the rules, regenerate both outputs with `python ai/scripts/run_pipeline.py --as-of <date>`.
+After changing the CSV or the rules, regenerate the pipeline outputs with `python ai/scripts/run_pipeline.py --as-of <date>`.
 
 ## Next AI tasks (planned)
 
 1. Semantic (meaning-based) search: multilingual embeddings precomputed here, query embedded in the browser
    with Transformers.js, combined with the current keyword search.
-2. Rule engine + match ranking in shared TypeScript (reusable by the Express backend).
+2. Rule engine + match ranking in shared TypeScript (reusable by the Express backend), reading the `criteria`
+   rows in `public/data/schemes.json`.
 3. "Fill this field to unlock N more schemes" (profile completeness, spec F2).
 4. Similar-scheme recommendations.
 5. F8 document check prototype with Tesseract.js (patent candidate - keep it out of public repos until the

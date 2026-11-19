@@ -164,9 +164,14 @@ def write_outputs(result: PipelineResult, out_dir: Path = OUTPUT_DIR) -> list[Pa
 
 
 # ---------------------------------------------------------------------------
-# Compact export for the website (public/data/schemes.json)
+# Compact export of the scraped dataset (ai/output/schemes_web.json)
+#
+# The website no longer loads this file. It loads the hand-verified dataset in
+# public/data/schemes.json, which is written from official sources and must not be
+# overwritten by the pipeline. This export stays useful for finding candidate
+# schemes to verify next.
 # ---------------------------------------------------------------------------
-FRONTEND_JSON = AI_DIR.parent / "public" / "data" / "schemes.json"
+FRONTEND_JSON = OUTPUT_DIR / "schemes_web.json"
 
 # Quality flags the UI shows to citizens; the rest are for the admin review queue.
 _UI_FLAGS = {"category_needs_review", "source_url_generic", "deadline_passed", "income_possibly_monthly"}

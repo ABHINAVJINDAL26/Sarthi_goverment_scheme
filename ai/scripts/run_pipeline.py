@@ -28,7 +28,8 @@ def main() -> None:
                         help="Reference date for staleness/deadlines (default: today)")
     parser.add_argument("--stale-days", type=int, default=365)
     parser.add_argument("--frontend-json", type=Path, default=FRONTEND_JSON,
-                        help="Compact file the website loads (default: public/data/schemes.json)")
+                        help="Compact export of the scraped data (default: ai/output/schemes_web.json). "
+                             "Do not point this at public/data/schemes.json: that file is the hand-verified dataset.")
     args = parser.parse_args()
 
     result = run(args.input, as_of=args.as_of, stale_days=args.stale_days)
