@@ -45,6 +45,9 @@ pipeline {
                         }
                     }
                 }
+                stage('Scheme data') {
+                    steps { script { runCmd 'node src/features/explore/data.test.ts' } }
+                }
                 stage('Search engine') {
                     steps { script { runCmd 'node src/features/explore/search.test.ts' } }
                 }

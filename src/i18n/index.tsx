@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import en, { type MessageKey } from './en'
 import hi from './hi'
-import { AUDIENCE_TERMS, CATEGORY_HI, CATEGORY_SHORT_EN, DOCUMENT_HI, OCCUPATION_TERMS, STATE_HI } from './dataTerms'
+import { AUDIENCE_TERMS, BENEFIT_TERMS, CATEGORY_HI, CATEGORY_SHORT_EN, DOCUMENT_HI, OCCUPATION_TERMS, STATE_HI } from './dataTerms'
 
 export type Lang = 'en' | 'hi'
 type Vars = Record<string, string | number>
@@ -31,6 +31,7 @@ export interface I18n {
   category: (name: string, short?: boolean) => string
   occupation: (id: string) => string
   audience: (id: string) => string
+  benefit: (id: string) => string
   document: (name: string) => string
   stateName: (name: string) => string
 }
@@ -66,6 +67,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         lang === 'hi' ? CATEGORY_HI[name] ?? name : short ? CATEGORY_SHORT_EN[name] ?? name : name,
       occupation: (id) => OCCUPATION_TERMS[id]?.[lang] ?? id,
       audience: (id) => AUDIENCE_TERMS[id]?.[lang] ?? id,
+      benefit: (id) => BENEFIT_TERMS[id]?.[lang] ?? id,
       document: (name) => (lang === 'hi' ? DOCUMENT_HI[name] ?? name : name),
       stateName: (name) => (lang === 'hi' ? STATE_HI[name] ?? name : name),
     }
