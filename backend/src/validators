@@ -1,0 +1,309 @@
+/**
+ * Profile Section Validation Rules and Logic
+ */
+
+export const GENDER_OPTIONS = ['male', 'female', 'other', 'prefer_not_to_say'];
+export const RESIDENCE_OPTIONS = ['rural', 'urban'];
+export const SOCIAL_CATEGORY_OPTIONS = ['general', 'obc', 'sc', 'st', 'ews', 'other', 'prefer_not_to_say'];
+export const MARITAL_STATUS_OPTIONS = ['single', 'married', 'divorced', 'widowed', 'separated', 'other'];
+
+export const SECTION_CONFIG = {
+    basics: {
+        title: 'Personal Information',
+        allowedFields: ['full_name', 'date_of_birth', 'gender'],
+        requiredFields: ['full_name', 'date_of_birth', 'gender']
+    },
+    location: {
+        title: 'Location Information',
+        allowedFields: ['state', 'district', 'residence_type'],
+        requiredFields: ['state', 'district', 'residence_type']
+    },
+    education: {
+        title: 'Education Information',
+        allowedFields: ['education_level'],
+        requiredFields: ['education_level']
+    },
+    employment: {
+        title: 'Employment Information',
+        allowedFields: ['occupation'],
+        requiredFields: ['occupation']
+    },
+    income: {
+        title: 'Income Information',
+        allowedFields: ['annual_household_income', 'land_holding_acres'],
+        requiredFields: ['annual_household_income']
+    },
+    social_category: {
+        title: 'Social Category Information',
+        allowedFields: ['social_category', 'minority_status', 'disability_status', 'bpl_card'],
+        requiredFields: ['social_category']
+    },
+    family: {
+        title: 'Family Information',
+        allowedFields: ['marital_status', 'family_size', 'land_holding_acres', 'bpl_card'],
+        requiredFields: ['marital_status', 'family_size']
+    }
+};
+
+/**
+ * Validate Date string in YYYY-MM-DD format and check it's not in the future
+ */
+export const isValidDateOfBirth = (dob) => {
+    if (typeof dob !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(dob)) {
+        return false;
+    }
+
+    const date = new Date(`${dob}T00:00:00Z`);
+    if (isNaN(date.getTime())) {
+        return false;
+    }
+
+    // Ensure format matches parsed value (e.g., rejecting Feb 31st)
+    if (date.toISOString().slice(0, 10) !== dob) {
+        return false;
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    return dob <= today;
+};
+
+/**
+ * Validates section payload for Personal (basics) and Location cards
+ */
+export const validateSectionPayload = (sectionKey, data) => {
+    const config = SECTION_CONFIG[sectionKey];
+    if (!config) {
+        return {
+            isValid: false,
+            errors: [{ field: 'sectionKey', message: `Unknown section key: ${sectionKey}` }]
+        };
+    }
+
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+        return {
+            isValid: false,
+            errors: [{ field: 'body', message: 'Request body must be a JSON object' }]
+        };
+    }
+
+    const fields = Object.keys(data);
+    if (fields.length === 0) {
+        return {
+            isValid: false,
+            errors: [{ field: 'body', message: 'Provide at least one field to save' }]
+        };
+    }
+
+    const errors = [];
+
+    // Check unknown fields
+    for (const field of fields) {
+        if (!config.allowedFields.includes(field)) {
+            errors.push({
+                field,
+                message: `'${field}' is not a valid field for section '${sectionKey}'`
+            });
+        }
+    }
+
+    if (errors.length > 0) {
+        return { isValid: false, errors };
+    }
+
+    // Card 1: basics validations
+    if (sectionKey === 'basics') {
+        if (data.full_name !== undefined && data.full_name !== null) {
+            if (typeof data.full_name !== 'string' || data.full_name.trim().length === 0) {
+                errors.push({ field: 'full_name', message: 'Full name must be a non-empty string' });
+            } else if (data.full_name.trim().length > 150) {
+                errors.push({ field: 'full_name', message: 'Full name cannot exceed 150 characters' });
+            }
+        }
+
+        if (data.date_of_birth !== undefined && data.date_of_birth !== null) {
+            if (!isValidDateOfBirth(data.date_of_birth)) {
+                errors.push({
+                    field: 'date_of_birth',
+                    message: 'Date of birth must be a valid date in YYYY-MM-DD format and cannot be in the future'
+                });
+            }
+        }
+
+        if (data.gender !== undefined && data.gender !== null) {
+            if (!GENDER_OPTIONS.includes(data.gender)) {
+                errors.push({
+                    field: 'gender',
+                    message: `Gender must be one of: ${GENDER_OPTIONS.join(', ')}`
+                });
+            }
+        }
+    }
+
+    // Card 2: location validations
+    if (sectionKey === 'location') {
+        if (data.state !== undefined && data.state !== null) {
+            if (typeof data.state !== 'string' || data.state.trim().length === 0) {
+                errors.push({ field: 'state', message: 'State must be a non-empty string' });
+            } else if (data.state.trim().length > 100) {
+                errors.push({ field: 'state', message: 'State cannot exceed 100 characters' });
+            }
+        }
+
+        if (data.district !== undefined && data.district !== null) {
+            if (typeof data.district !== 'string' || data.district.trim().length === 0) {
+                errors.push({ field: 'district', message: 'District must be a non-empty string' });
+            } else if (data.district.trim().length > 100) {
+                errors.push({ field: 'district', message: 'District cannot exceed 100 characters' });
+            }
+        }
+
+        if (data.residence_type !== undefined && data.residence_type !== null) {
+            if (!RESIDENCE_OPTIONS.includes(data.residence_type)) {
+                errors.push({
+                    field: 'residence_type',
+                    message: `Residence type must be one of: ${RESIDENCE_OPTIONS.join(', ')}`
+                });
+            }
+        }
+    }
+
+    // Card 3: education validations
+    if (sectionKey === 'education') {
+        if (data.education_level !== undefined && data.education_level !== null) {
+            if (typeof data.education_level !== 'string' || data.education_level.trim().length === 0) {
+                errors.push({ field: 'education_level', message: 'Education level must be a non-empty string' });
+            } else if (data.education_level.trim().length > 100) {
+                errors.push({ field: 'education_level', message: 'Education level cannot exceed 100 characters' });
+            }
+        }
+    }
+
+    // Card 4: employment validations
+    if (sectionKey === 'employment') {
+        if (data.occupation !== undefined && data.occupation !== null) {
+            if (typeof data.occupation !== 'string' || data.occupation.trim().length === 0) {
+                errors.push({ field: 'occupation', message: 'Occupation must be a non-empty string' });
+            } else if (data.occupation.trim().length > 100) {
+                errors.push({ field: 'occupation', message: 'Occupation cannot exceed 100 characters' });
+            }
+        }
+    }
+
+    // Card 5: income validations
+    if (sectionKey === 'income') {
+        if (data.annual_household_income !== undefined && data.annual_household_income !== null) {
+            const incomeVal = Number(data.annual_household_income);
+            if (!Number.isFinite(incomeVal) || incomeVal < 0) {
+                errors.push({
+                    field: 'annual_household_income',
+                    message: 'Annual household income must be a valid non-negative number'
+                });
+            } else if (incomeVal > 9999999999.99) {
+                errors.push({
+                    field: 'annual_household_income',
+                    message: 'Annual household income exceeds maximum supported limit'
+                });
+            }
+        }
+
+        if (data.land_holding_acres !== undefined && data.land_holding_acres !== null) {
+            const landVal = Number(data.land_holding_acres);
+            if (!Number.isFinite(landVal) || landVal < 0) {
+                errors.push({
+                    field: 'land_holding_acres',
+                    message: 'Land holding in acres must be a valid non-negative number'
+                });
+            } else if (landVal > 99999999.99) {
+                errors.push({
+                    field: 'land_holding_acres',
+                    message: 'Land holding in acres exceeds maximum supported limit'
+                });
+            }
+        }
+    }
+
+    // Card 6: social_category validations
+    if (sectionKey === 'social_category') {
+        if (data.social_category !== undefined && data.social_category !== null) {
+            if (typeof data.social_category !== 'string' || data.social_category.trim().length === 0) {
+                errors.push({ field: 'social_category', message: 'Social category must be a non-empty string' });
+            } else {
+                const normalized = data.social_category.trim().toLowerCase();
+                if (!SOCIAL_CATEGORY_OPTIONS.includes(normalized)) {
+                    errors.push({
+                        field: 'social_category',
+                        message: `Social category must be one of: ${SOCIAL_CATEGORY_OPTIONS.join(', ')}`
+                    });
+                }
+            }
+        }
+
+        const booleanFields = ['minority_status', 'disability_status', 'bpl_card'];
+        for (const bf of booleanFields) {
+            if (data[bf] !== undefined && data[bf] !== null) {
+                if (typeof data[bf] !== 'boolean') {
+                    errors.push({
+                        field: bf,
+                        message: `${bf} must be a boolean (true or false) or null`
+                    });
+                }
+            }
+        }
+    }
+
+    // Card 7: family validations
+    if (sectionKey === 'family') {
+        if (data.marital_status !== undefined && data.marital_status !== null) {
+            if (typeof data.marital_status !== 'string' || data.marital_status.trim().length === 0) {
+                errors.push({ field: 'marital_status', message: 'Marital status must be a non-empty string' });
+            } else {
+                const normalized = data.marital_status.trim().toLowerCase();
+                if (!MARITAL_STATUS_OPTIONS.includes(normalized)) {
+                    errors.push({
+                        field: 'marital_status',
+                        message: `Marital status must be one of: ${MARITAL_STATUS_OPTIONS.join(', ')}`
+                    });
+                }
+            }
+        }
+
+        if (data.family_size !== undefined && data.family_size !== null) {
+            const sizeVal = Number(data.family_size);
+            if (!Number.isInteger(sizeVal) || sizeVal < 1) {
+                errors.push({
+                    field: 'family_size',
+                    message: 'Family size must be an integer of at least 1'
+                });
+            } else if (sizeVal > 100) {
+                errors.push({
+                    field: 'family_size',
+                    message: 'Family size cannot exceed 100'
+                });
+            }
+        }
+
+        if (data.land_holding_acres !== undefined && data.land_holding_acres !== null) {
+            const landVal = Number(data.land_holding_acres);
+            if (!Number.isFinite(landVal) || landVal < 0) {
+                errors.push({
+                    field: 'land_holding_acres',
+                    message: 'Land holding in acres must be a valid non-negative number'
+                });
+            }
+        }
+
+        if (data.bpl_card !== undefined && data.bpl_card !== null) {
+            if (typeof data.bpl_card !== 'boolean') {
+                errors.push({
+                    field: 'bpl_card',
+                    message: 'bpl_card must be a boolean (true or false) or null'
+                });
+            }
+        }
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors
+    };
+};
