@@ -1,6 +1,5 @@
 import { createClient } from 'redis';
-import dotenv from 'dotenv';
-dotenv.config();
+import './env.js'; // loads .env
 
 let redisClient = null;
 let isConnected = false;

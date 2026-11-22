@@ -1,21 +1,21 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
-dotenv.config();
+import pg from 'pg';
+import { config } from './env.js';
 
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-});
-
-pool.on('connect', () => {
-    console.log('Connected to the database');
-});
+const pool = new pg.Pool(config.db);
 
 pool.on('error', (err) => {
-    console.error('Database error:', err);
+    // An idle client lost its connection; the pool replaces it on the next query.
+    console.error('PostgreSQL pool error:', err.message);
 });
+
+/** True when the database answers a trivial query. Used by the health check. */
+export async function isDatabaseReady() {
+    try {
+        await pool.query('SELECT 1');
+        return true;
+    } catch {
+        return false;
+    }
+}
 
 export default pool;

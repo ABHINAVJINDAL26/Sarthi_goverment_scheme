@@ -1,8 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { config } from '../config/env.js';
 import { errorResponse } from '../utils/response.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'sarthi_secure_jwt_secret_key_2026_dev';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+// No default: config/env.js stops the server if JWT_SECRET is missing or too short.
+const JWT_SECRET = config.jwtSecret;
+const JWT_EXPIRES_IN = config.jwtExpiresIn;
+const JWT_ALGORITHM = 'HS256';
 
 /**
  * Generate a JWT for an authenticated user
@@ -14,7 +17,7 @@ export const generateToken = (user) => {
             mobileNumber: user.mobile_number || user.mobileNumber
         },
         JWT_SECRET,
-        { expiresIn: JWT_EXPIRES_IN }
+        { expiresIn: JWT_EXPIRES_IN, algorithm: JWT_ALGORITHM }
     );
 };
 
@@ -29,7 +32,8 @@ export const authenticateToken = (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
 
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    // Pin the algorithm so a token signed with another algorithm is rejected.
+    jwt.verify(token, JWT_SECRET, { algorithms: [JWT_ALGORITHM] }, (err, decoded) => {
         if (err) {
             return errorResponse(res, 401, 'Invalid or expired authentication token.');
         }
