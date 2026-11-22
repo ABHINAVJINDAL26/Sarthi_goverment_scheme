@@ -33,7 +33,9 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/schemes', (req, res) => {
     const { state, category, benefit, scope } = req.query;
     const schemes = listSchemes({ state, category, benefit, scope });
-    return successResponse(res, 200, 'OK', { as_of: loadSchemes().as_of, count: schemes.length, schemes });
+    const { version, as_of } = loadSchemes();
+    // Same shape as public/data/schemes.json, so the website can use either.
+    return successResponse(res, 200, 'OK', { version, as_of, count: schemes.length, schemes });
 });
 
 app.get('/api/schemes/:id', (req, res) => {
@@ -50,7 +52,14 @@ app.use(errorHandler);
 
 /** Start the HTTP server. Returns the server so tests can close it. */
 export function start(port = config.port) {
-    const server = app.listen(port, async () => {
+    // Express 5 passes a listen error (e.g. port already in use) to this callback.
+    const server = app.listen(port, async (err) => {
+        if (err) {
+            console.error(err.code === 'EADDRINUSE'
+                ? `Port ${port} is already in use. Stop the other server (another "npm run dev"?) or set PORT in .env.`
+                : `Could not start the server: ${err.message}`);
+            process.exit(1);
+        }
         const { port: actual } = server.address();
         console.log(`Sarthi API listening on http://localhost:${actual} (${config.nodeEnv})`);
         console.log(`Database: ${(await isDatabaseReady()) ? 'connected' : 'NOT reachable, check DB_* in .env'}`);

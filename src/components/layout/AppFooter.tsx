@@ -35,7 +35,11 @@ export default function AppFooter() {
 
       <div className="s-container s-footer__bottom">
         <span>© 2026 {t('app.name')}</span>
-        {schemes.status === 'ready' && <span>{t('footer.dataNote', { date: date(schemes.data.as_of) })}</span>}
+        {schemes.status === 'ready' && (
+          <span data-testid="data-source" data-source={schemes.source}>
+            {t('footer.dataNote', { date: date(schemes.data.as_of) })} {t(schemes.source === 'api' ? 'footer.sourceApi' : 'footer.sourceStatic')}
+          </span>
+        )}
       </div>
     </footer>
   )
