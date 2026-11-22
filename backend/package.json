@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node --test --test-force-exit tests/**/*.test.js",
     "start": "node src/app.js",
-    "dev": "node --watch src/app.js",
+    "dev": "node --watch-path=src --watch-path=database src/app.js",
     "migrate": "node database/migrate.js"
   },
   "type": "module",

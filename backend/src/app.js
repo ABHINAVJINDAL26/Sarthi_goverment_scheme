@@ -52,7 +52,14 @@ app.use(errorHandler);
 
 /** Start the HTTP server. Returns the server so tests can close it. */
 export function start(port = config.port) {
-    const server = app.listen(port, async () => {
+    // Express 5 passes a listen error (e.g. port already in use) to this callback.
+    const server = app.listen(port, async (err) => {
+        if (err) {
+            console.error(err.code === 'EADDRINUSE'
+                ? `Port ${port} is already in use. Stop the other server (another "npm run dev"?) or set PORT in .env.`
+                : `Could not start the server: ${err.message}`);
+            process.exit(1);
+        }
         const { port: actual } = server.address();
         console.log(`Sarthi API listening on http://localhost:${actual} (${config.nodeEnv})`);
         console.log(`Database: ${(await isDatabaseReady()) ? 'connected' : 'NOT reachable, check DB_* in .env'}`);
