@@ -78,14 +78,12 @@ npm run dev
 ### 2. Backend Setup *(Node.js & Express)*
 ```bash
 cd backend
-
-# Install dependencies
 npm install
-
-# Start development server
+cp .env.example .env    # fill in DB_* and JWT_SECRET (32+ characters)
+npm run migrate         # create / upgrade the PostgreSQL database
 npm run dev
 ```
-> API server will run at **`http://localhost:5000`** (or `http://localhost:8000`).
+> API server runs at **`http://localhost:5000`**. Details, routes and the database workflow: [backend/README.md](backend/README.md).
 
 ---
 

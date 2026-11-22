@@ -1,7 +1,24 @@
 -- ==============================================================================
 -- SARTHI DATABASE SCHEMA
--- PostgreSQL schema definition for Sarthi backend
+-- PostgreSQL schema definition for Sarthi backend.
+--
+-- This file is the full, latest schema. `npm run migrate` applies it to an empty
+-- database and marks every file in database/migrations/ as already applied.
+-- An existing database gets only the migrations it has not run yet.
+-- When you change the schema: add a new numbered migration AND update this file.
+--
+-- Profile fields: every field that a scheme rule reads (public/data/schemes.json,
+-- "criteria") has a column here; backend/src/eligibility/profileFacts.js maps
+-- columns to rule fields and its test fails if a rule field has no column.
+-- NULL always means "not answered / prefer not to say" and is evaluated as
+-- UNKNOWN, never as "no" (PRD FR-2.5, FR-2.9).
 -- ==============================================================================
+
+-- 0. MIGRATION LOG
+CREATE TABLE IF NOT EXISTS schema_migrations (
+    filename VARCHAR(255) PRIMARY KEY,
+    applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
 -- 1. USERS TABLE
 -- Core identity table for mobile-based OTP authentication
@@ -13,7 +30,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    CONSTRAINT valid_mobile_number 
+    CONSTRAINT valid_mobile_number
         CHECK (mobile_number ~ '^[6-9][0-9]{9}$')
 );
 
@@ -32,26 +49,40 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     state VARCHAR(100),
     district VARCHAR(100),
     residence_type VARCHAR(20),
+    has_pucca_house BOOLEAN,              -- PMAY-G, PMAY-U 2.0
+    owns_house BOOLEAN,                   -- PM Surya Ghar
+    has_electricity_connection BOOLEAN,   -- PM Surya Ghar
 
     -- Card 3: Education Information
     education_level VARCHAR(100),
+    is_student BOOLEAN,
+    current_class SMALLINT,               -- 1-12 while in school; NMMSS, Post Matric
 
     -- Card 4: Employment Information
     occupation VARCHAR(100),
+    govt_employee_in_family BOOLEAN,      -- PM-KISAN, PM Vishwakarma exclusions
+    epfo_esic_nps_member BOOLEAN,         -- PM-SYM exclusion
 
     -- Card 5: Income Information
     annual_household_income NUMERIC(12, 2),
+    monthly_personal_income NUMERIC(12, 2),  -- PM-SYM, ADIP limits are per month
+    income_tax_payer BOOLEAN,             -- PM-KISAN, APY, PM-SYM exclusions
+    has_bank_account BOOLEAN,             -- DBT schemes, PMJJBY, PMSBY, APY
     land_holding_acres NUMERIC(10, 2),
 
     -- Card 6: Social Category Information
     social_category VARCHAR(50),
     minority_status BOOLEAN,
     disability_status BOOLEAN,
+    disability_percent SMALLINT,          -- ADIP 40%+, Punjab 50%+, IGNDPS
     bpl_card BOOLEAN,
+    ration_card_type VARCHAR(20),         -- PMGKAY (AAY / PHH)
+    in_secc_list BOOLEAN,                 -- PM-JAY, PMAY-G beneficiary lists
 
     -- Card 7: Family Information
     marital_status VARCHAR(30),
     family_size INTEGER,
+    pregnant_or_lactating BOOLEAN,        -- JSY, PMMVY
 
     -- Final Submission Workflow
     is_submitted BOOLEAN DEFAULT FALSE,
@@ -68,6 +99,10 @@ CREATE TABLE IF NOT EXISTS user_profiles (
         annual_household_income IS NULL
         OR annual_household_income >= 0
     ),
+    CONSTRAINT chk_monthly_income CHECK (
+        monthly_personal_income IS NULL
+        OR monthly_personal_income >= 0
+    ),
     CONSTRAINT chk_land_holding CHECK (
         land_holding_acres IS NULL
         OR land_holding_acres >= 0
@@ -79,6 +114,38 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     CONSTRAINT chk_residence_type CHECK (
         residence_type IS NULL
         OR residence_type IN ('rural', 'urban')
+    ),
+    CONSTRAINT chk_gender CHECK (
+        gender IS NULL
+        OR gender IN ('female', 'male', 'transgender')
+    ),
+    CONSTRAINT chk_social_category CHECK (
+        social_category IS NULL
+        OR social_category IN ('General', 'OBC', 'SC', 'ST', 'EWS')
+    ),
+    CONSTRAINT chk_marital_status CHECK (
+        marital_status IS NULL
+        OR marital_status IN ('unmarried', 'married', 'widow', 'divorced', 'separated', 'destitute')
+    ),
+    CONSTRAINT chk_occupation CHECK (
+        occupation IS NULL
+        OR occupation IN (
+            'farmer', 'student', 'entrepreneur', 'artisan', 'street_vendor',
+            'unorganised_worker', 'construction_worker', 'salaried', 'unemployed',
+            'homemaker', 'retired', 'other'
+        )
+    ),
+    CONSTRAINT chk_ration_card_type CHECK (
+        ration_card_type IS NULL
+        OR ration_card_type IN ('AAY', 'PHH', 'NON_NFSA', 'NONE')
+    ),
+    CONSTRAINT chk_disability_percent CHECK (
+        disability_percent IS NULL
+        OR disability_percent BETWEEN 0 AND 100
+    ),
+    CONSTRAINT chk_current_class CHECK (
+        current_class IS NULL
+        OR current_class BETWEEN 1 AND 12
     )
 );
 

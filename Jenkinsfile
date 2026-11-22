@@ -51,6 +51,16 @@ pipeline {
                 stage('Search engine') {
                     steps { script { runCmd 'node src/features/explore/search.test.ts' } }
                 }
+                stage('Backend') {
+                    steps {
+                        dir('backend') {
+                            script {
+                                runCmd 'npm ci --no-audit --no-fund'
+                                runCmd 'npm test'
+                            }
+                        }
+                    }
+                }
                 stage('TypeScript') {
                     steps { script { runCmd 'npx tsc --noEmit -p .' } }
                 }

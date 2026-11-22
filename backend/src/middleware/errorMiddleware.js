@@ -1,11 +1,16 @@
+import { isProduction } from '../config/env.js';
 import { errorResponse } from '../utils/response.js';
+
+/** 404 for any route that no router handled. */
+export const notFound = (req, res) => errorResponse(res, 404, `Route not found: ${req.method} ${req.path}`);
 
 /**
  * Centralized Error Handling Middleware
  */
+// eslint-disable-next-line no-unused-vars -- Express needs the 4-argument signature to treat this as an error handler
 export const errorHandler = (err, req, res, next) => {
     // Avoid leaking stack traces in production
-    const isDevelopment = process.env.NODE_ENV !== 'production';
+    const isDevelopment = !isProduction;
 
     // PostgreSQL specific errors
     if (err.code === '23505') {
