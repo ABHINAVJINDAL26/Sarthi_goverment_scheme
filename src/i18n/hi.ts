@@ -56,6 +56,8 @@ const hi: Record<MessageKey, string> = {
   'footer.links': 'काम के लिंक',
   'footer.official': 'myScheme (सरकारी पोर्टल)',
   'footer.dataNote': 'योजनाओं का डेटा आख़िरी बार {date} को जाँचा गया।',
+  'footer.sourceApi': '(सारथी सर्वर से)',
+  'footer.sourceStatic': '(ऑफ़लाइन कॉपी)',
 
   'ex.eyebrow': 'योजनाएँ देखें',
   'ex.title': 'अपनी भाषा में सरकारी योजनाएँ खोजें',

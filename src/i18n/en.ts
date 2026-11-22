@@ -61,6 +61,8 @@ const en = {
   'footer.links': 'Useful links',
   'footer.official': 'myScheme (official portal)',
   'footer.dataNote': 'Scheme data last checked on {date}.',
+  'footer.sourceApi': '(live from the Sarthi server)',
+  'footer.sourceStatic': '(offline copy)',
 
   // Explore
   'ex.eyebrow': 'Explore schemes',

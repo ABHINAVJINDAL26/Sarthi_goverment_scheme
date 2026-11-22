@@ -15,6 +15,13 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: false
+    open: false,
+    // Send /api/* to the Express backend (backend/, port 5000) during development.
+    proxy: {
+      '/api': {
+        target: process.env.SARTHI_API_TARGET || 'http://localhost:5000',
+        changeOrigin: true
+      }
+    }
   }
 });

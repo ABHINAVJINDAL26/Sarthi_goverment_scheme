@@ -33,7 +33,9 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/schemes', (req, res) => {
     const { state, category, benefit, scope } = req.query;
     const schemes = listSchemes({ state, category, benefit, scope });
-    return successResponse(res, 200, 'OK', { as_of: loadSchemes().as_of, count: schemes.length, schemes });
+    const { version, as_of } = loadSchemes();
+    // Same shape as public/data/schemes.json, so the website can use either.
+    return successResponse(res, 200, 'OK', { version, as_of, count: schemes.length, schemes });
 });
 
 app.get('/api/schemes/:id', (req, res) => {
