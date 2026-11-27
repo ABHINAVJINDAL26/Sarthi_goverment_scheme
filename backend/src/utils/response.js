@@ -1,14 +1,33 @@
 /**
- * One response shape for the whole API, so the frontend can always read
- * `success`, `message`, and either `data` or `error`.
+ * Standardized API Response Utilities
+ * One response shape for the whole API:
+ *   success: { success: true,  message, data? }
+ *   error:   { success: false, message, errors? }
+ * `data` / `errors` are left out when there is nothing to send.
  */
 
 export const successResponse = (res, statusCode = 200, message = 'OK', data = null) => {
-    return res.status(statusCode).json({ success: true, message, data });
+    const responsePayload = {
+        success: true,
+        message
+    };
+
+    if (data !== null && data !== undefined) {
+        responsePayload.data = data;
+    }
+
+    return res.status(statusCode).json(responsePayload);
 };
 
-export const errorResponse = (res, statusCode = 500, message = 'Something went wrong.', error = null) => {
-    const body = { success: false, message };
-    if (error) body.error = error;
-    return res.status(statusCode).json(body);
+export const errorResponse = (res, statusCode = 500, message = 'Something went wrong.', errors = null) => {
+    const responsePayload = {
+        success: false,
+        message
+    };
+
+    if (errors !== null && errors !== undefined) {
+        responsePayload.errors = errors;
+    }
+
+    return res.status(statusCode).json(responsePayload);
 };

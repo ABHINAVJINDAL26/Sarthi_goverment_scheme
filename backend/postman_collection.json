@@ -1,0 +1,364 @@
+{
+  "info": {
+    "name": "SARTHI Backend API Collection",
+    "description": "Complete Postman/Thunder Client collection for Sarthi Government Scheme Assistance Platform Backend APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "2",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. System Health",
+      "item": [
+        {
+          "name": "Database Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/health/db",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health", "db"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Send OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobileNumber\": \"9876543210\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/otp/send",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "otp", "send"]
+            }
+          }
+        },
+        {
+          "name": "Verify OTP & Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobileNumber\": \"9876543210\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/otp/verify",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "otp", "verify"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Profile & Progress",
+      "item": [
+        {
+          "name": "Get Full Profile & Progress",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Card Progress Only",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/progress",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "progress"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile Completeness",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/completeness",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "completeness"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Section-Wise Autosave (Cards 1-7)",
+      "item": [
+        {
+          "name": "Card 1: Autosave Personal (basics)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Priya Sharma\",\n  \"date_of_birth\": \"1998-08-15\",\n  \"gender\": \"female\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/basics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "basics"]
+            }
+          }
+        },
+        {
+          "name": "Card 2: Autosave Location",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"Punjab\",\n  \"district\": \"Amritsar\",\n  \"residence_type\": \"rural\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/location",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "location"]
+            }
+          }
+        },
+        {
+          "name": "Card 3: Autosave Education",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"education_level\": \"Graduate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/education",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "education"]
+            }
+          }
+        },
+        {
+          "name": "Card 4: Autosave Employment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"occupation\": \"Farmer\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/employment",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "employment"]
+            }
+          }
+        },
+        {
+          "name": "Card 5: Autosave Income",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annual_household_income\": 120000,\n  \"land_holding_acres\": 2.5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/income",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "income"]
+            }
+          }
+        },
+        {
+          "name": "Card 6: Autosave Social Category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"social_category\": \"obc\",\n  \"minority_status\": false,\n  \"disability_status\": false,\n  \"bpl_card\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/social_category",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "social_category"]
+            }
+          }
+        },
+        {
+          "name": "Card 7: Autosave Family",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"marital_status\": \"married\",\n  \"family_size\": 4\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/sections/family",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "sections", "family"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Final Review & Submission (Card 8)",
+      "item": [
+        {
+          "name": "Get Profile Final Review",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/review",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "review"]
+            }
+          }
+        },
+        {
+          "name": "Submit Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile/{{userId}}/submit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile", "{{userId}}", "submit"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

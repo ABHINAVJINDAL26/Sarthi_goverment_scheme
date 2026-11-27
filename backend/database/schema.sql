@@ -84,6 +84,9 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     family_size INTEGER,
     pregnant_or_lactating BOOLEAN,        -- JSY, PMMVY
 
+    -- Fields answered with "prefer not to say" (stored as NULL above)
+    declined_fields TEXT[] NOT NULL DEFAULT '{}',
+
     -- Final Submission Workflow
     is_submitted BOOLEAN DEFAULT FALSE,
     submitted_at TIMESTAMPTZ,

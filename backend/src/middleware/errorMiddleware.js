@@ -30,6 +30,16 @@ export const errorHandler = (err, req, res, next) => {
         return errorResponse(res, 400, 'Malformed JSON in request body.');
     }
 
+    // Body larger than the express.json limit
+    if (err.type === 'entity.too.large') {
+        return errorResponse(res, 413, 'Request body is too large.');
+    }
+
+    // CORS rejection (see app.js)
+    if (err.status === 403 && err.message === 'Blocked by CORS policy') {
+        return errorResponse(res, 403, 'This origin is not allowed to call the API.');
+    }
+
     console.error('Unhandled Server Error:', err.message);
 
     return errorResponse(

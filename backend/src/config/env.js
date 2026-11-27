@@ -28,16 +28,48 @@ function loadJwtSecret() {
     return secret;
 }
 
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isTest = nodeEnv === 'test';
+
+/** Allowed browser origins: CORS_ORIGIN or ALLOWED_ORIGINS, comma-separated ("*" allows any). */
+function loadCorsOrigins() {
+    const raw = process.env.CORS_ORIGIN || process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:5173';
+    return raw.split(',').map((s) => s.trim()).filter(Boolean);
+}
+
+/**
+ * Tests never touch the development database: in test mode the database is TEST_DB_NAME,
+ * or "<DB_NAME>_test" when that is not set. `npm run test:db:setup` creates it.
+ */
+function loadDatabaseName() {
+    const name = required('DB_NAME');
+    if (!isTest) return name;
+    return process.env.TEST_DB_NAME?.trim() || (name.endsWith('_test') ? name : `${name}_test`);
+}
+
+/**
+ * Echo the OTP in the API response (and print it in the terminal) so the app can be used
+ * without an SMS provider. Opt-in only, and refused in production.
+ */
+function loadOtpDevEcho() {
+    const on = process.env.OTP_DEV_ECHO === 'true';
+    if (on && nodeEnv === 'production') {
+        throw new Error('OTP_DEV_ECHO must not be enabled when NODE_ENV=production.');
+    }
+    return on;
+}
+
 export const config = Object.freeze({
-    nodeEnv: process.env.NODE_ENV || 'development',
+    nodeEnv,
     port: Number(process.env.PORT) || 5000,
-    corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    corsOrigins: loadCorsOrigins(),
     jwtSecret: loadJwtSecret(),
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
+    otpDevEcho: loadOtpDevEcho(),
     db: {
         host: process.env.DB_HOST || 'localhost',
         port: Number(process.env.DB_PORT) || 5432,
-        database: required('DB_NAME'),
+        database: loadDatabaseName(),
         user: required('DB_USER'),
         password: process.env.DB_PASSWORD || '',
     },
